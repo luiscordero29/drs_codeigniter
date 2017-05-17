@@ -80,7 +80,7 @@ $db['default'] = array(
 	'password' => 'administrator',
 	'database' => '2017_drs',
 	'dbdriver' => 'mysqli',
-	'dbprefix' => '',
+	'dbprefix' => 'drs_',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
 	'cache_on' => FALSE,
