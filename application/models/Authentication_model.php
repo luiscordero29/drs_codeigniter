@@ -20,7 +20,7 @@ Class Authentication_model extends CI_MODEL
 	public function check_clave()
 	{
 		$dus_usuario = $this->input->post('dus_usuario');
-		$dus_clave = $this->encryption->encrypt($this->input->post('dus_clave'));
+		$dus_clave = hash('sha512', $this->input->post('dus_clave'));
 		$query = $this->db->get_where('usuarios', array('dus_usuario' => $dus_usuario,'dus_clave' => $dus_clave));
 	    if($query->num_rows() > 0){
 	    	return true;

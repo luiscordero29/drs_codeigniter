@@ -9,9 +9,9 @@
     <!-- Bootstrap 3.3.6 -->
     <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css'); ?>">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo base_url('assets/font-awesome/css/font-awesome.min.css'); ?>">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="<?php echo base_url('assets/ionicons/css/ionicons.min.css'); ?>">
     <!-- Theme style -->
     <link rel="stylesheet" href="<?php echo base_url('assets/AdminLTE/css/AdminLTE.min.css'); ?>">
     <!-- iCheck -->
@@ -26,17 +26,8 @@
 </head>
 <body class="hold-transition login-page">
     <div class="login-box">
-        <?php 
-        /*
-        $plain_text = 'This is a plain-text message!';
-        $ciphertext = $this->encryption->encrypt($plain_text);
-        echo $ciphertext;
-        // Outputs: This is a plain-text message!
-        echo $this->encryption->decrypt($ciphertext);
-        */
-        ?>
         <div class="login-logo">
-            <a href="<?php echo site_url(); ?>"><b>SIS</b></a>
+            <a href="<?php echo site_url(); ?>">Sistema Integral de Salud</a>
         </div>
         <!-- /.login-logo -->
         <div class="login-box-body">
@@ -45,7 +36,7 @@
             <?php echo form_open(); ?>
                 <?php echo validation_errors('<div class="alert alert-danger">','</div>'); ?> 
                 <div class="form-group has-feedback">
-                    <input type="text" name="dus_usuario" class="form-control" placeholder="Usuario ó Email" autocomplete="off" autofocus="">
+                    <input type="text" name="dus_usuario" class="form-control" placeholder="Usuario" autocomplete="off" autofocus="">
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
