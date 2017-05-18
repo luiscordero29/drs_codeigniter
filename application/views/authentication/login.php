@@ -13,7 +13,7 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="<?php echo base_url('assets/ionicons/css/ionicons.min.css'); ?>">
     <!-- Theme style -->
-    <link rel="stylesheet" href="<?php echo base_url('assets/AdminLTE/css/AdminLTE.min.css'); ?>">
+    <link rel="stylesheet" href="<?php echo base_url('assets/AdminLTE/css/AdminLTE.css'); ?>">
     <!-- iCheck -->
     <link rel="stylesheet" href="<?php echo base_url('assets/plugins/iCheck/square/blue.css'); ?>">
 
@@ -31,8 +31,8 @@
         </div>
         <!-- /.login-logo -->
         <div class="login-box-body">
-            <p class="login-box-msg">Iniciar Sesión</p>
-
+            <h4 class="text-center">Iniciar Sesión</h4>
+            <hr>
             <?php echo form_open(); ?>
                 <?php echo validation_errors('<div class="alert alert-danger">','</div>'); ?> 
                 <div class="form-group has-feedback">
@@ -72,8 +72,8 @@
             <!-- /.social-auth-links -->
             */ ?>
             <hr>
-            <a href="#">Recuperar Clave</a><br>
-            <a href="register.html" class="text-center">Registrarse</a>
+            <a href="<?php echo site_url('authentication/passwordrecovery'); ?>">Recuperar Clave</a><br>
+            <a href="<?php echo site_url('authentication/register'); ?>" class="text-center">Registrarse</a>
 
         </div>
         <!-- /.login-box-body -->

@@ -55,4 +55,26 @@ class Authentication extends CI_Controller {
 	{
 		return $this->Authentication_model->check_authentication();
 	}
+
+	public function register()
+	{
+		# rules
+		$this->form_validation->set_rules('dus_identidad', 'Cedula de Identidad', 'trim|required|is_natural_no_zero|min_length[6]|max_length[9]|is_unique[usuarios.dus_identidad]');
+		$this->form_validation->set_rules('dus_apellidos', 'Apellidos', 'trim|required');
+		$this->form_validation->set_rules('dus_nombres', 'Nombres', 'trim|required');
+		$this->form_validation->set_rules('dus_telefono', 'Teléfono', 'trim|required|is_natural');
+		$this->form_validation->set_rules('dus_direccion', 'Dirección', 'trim|required');
+		$this->form_validation->set_rules('dus_usuario', 'Usuario', 'trim|required|alpha_numeric|min_length[6]|max_length[15]|is_unique[usuarios.dus_usuario]');
+		$this->form_validation->set_rules('dus_email', 'E-mail', 'trim|required|is_unique[usuarios.dus_email]|valid_email');
+		$this->form_validation->set_rules('dus_clave', 'Clave', 'required');
+		$this->form_validation->set_rules('dus_clave_repetir', 'Repetir Clave', 'required|matches[dus_clave]');
+		# views
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->load->view('authentication/register');	
+		}else{	
+			$data = $this->Authentication_model->register();
+	        $this->load->view('authentication/register_alerts',$data);
+		}
+	}
 }
