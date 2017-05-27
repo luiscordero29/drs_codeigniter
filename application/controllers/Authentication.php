@@ -27,7 +27,7 @@ class Authentication extends CI_Controller {
 	{
 		# rules
 		$this->form_validation->set_rules('dus_usuario', 'Usuario', 'required');
-		$this->form_validation->set_rules('dus_clave', 'Contraseña', 'required|callback_check_usuario|callback_check_clave|callback_check_authentication');
+		$this->form_validation->set_rules('dus_clave', 'Contraseña', 'required|callback_check_usuario|callback_check_clave|callback_check_authentication|callback_check_authentication');
 		# message
 		$this->form_validation->set_message('check_usuario', 'El Usuario ó Email no existe');
 		$this->form_validation->set_message('check_clave', 'Contraseña invalidad');
@@ -75,6 +75,37 @@ class Authentication extends CI_Controller {
 		}else{	
 			$data = $this->Authentication_model->register();
 	        $this->load->view('authentication/register_alerts',$data);
+		}
+	}
+
+	public function passwordrecovery()
+	{
+		# rules
+		$this->form_validation->set_rules('dus_email', 'E-mail', 'trim|required|callback_check_passwordrecovery|valid_email');
+		# message
+		$this->form_validation->set_message('check_passwordrecovery', 'El Email no existe');
+		# views
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->load->view('authentication/passwordrecovery');	
+		}else{	
+			$data = $this->Authentication_model->passwordrecovery();
+	        $this->load->view('authentication/passwordrecovery_alerts',$data);
+		}
+	}
+
+	public function check_passwordrecovery()
+	{
+		return $this->Authentication_model->check_passwordrecovery();
+	}
+
+	public function validation($dus_ruta)
+	{
+		if (!empty($dus_ruta)) {
+			$data = $this->Authentication_model->validation($dus_ruta);
+		    $this->load->view('authentication/validation_alerts',$data);
+		}else{
+			redirect('authentication');
 		}
 	}
 }
