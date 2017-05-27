@@ -38,6 +38,9 @@ Class Authentication_model extends CI_MODEL
 	    	$sess_array = array(
 		        'dus_id' 		=> $r['dus_id'],
 		        'dus_usuario' 	=> $r['dus_usuario'],		          	
+		        'dus_email' 	=> $r['dus_email'],		          	
+		        'dus_apellidos' => $r['dus_apellidos'],		          	
+		        'dus_nombres' 	=> $r['dus_nombres'],		          	
 		    );
 	        $this->session->set_userdata($sess_array);
 	    	return true;
