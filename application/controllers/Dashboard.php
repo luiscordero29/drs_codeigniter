@@ -26,6 +26,17 @@ class Dashboard extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('dashboard/index');	
+		$data = 
+			array(
+				'title' => 'Sistema Integral de Salud | Panel de Control', 
+				'module_title' => 'Sistema Integral de Salud', 
+				'module_description' => 'Panel de Control', 
+				'breadcrumb' => 
+					array(
+						'<i class="fa fa-dashboard"></i> Sistema Integral de Salud' => 'dashboard/index',
+	            		'Panel de Control' => '', 
+					),
+			);
+		$this->load->view('dashboard/index',$data);	
 	}
 }
