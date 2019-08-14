@@ -9,4 +9,9 @@
 application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
-#/vendor/
+
+# composer package
+vendor
+
+# npm package
+node_modules
