@@ -1,6 +1,39 @@
 {% extends "layouts/auth.twig" %}
 {% block content %}
-  <!-- /.login-logo -->
+	<!-- begin login-header -->
+	<div class="login-header">
+		<div class="brand">
+			Iniciar Sesión
+		</div>
+	</div>
+	<!-- end login-header -->
+	{% include 'layouts/alerts.twig' %}
+	<!-- begin login-content -->
+	<div class="login-content">
+		{% set attributes = {'class': 'margin-bottom-0'} %}
+		{{ form_open('/auth/login', attributes) }}
+			<div class="form-group m-b-15">
+				<label for="email">E-mail ó Cédula de Identidad</label>					
+				<input name="email" type="text" class="form-control form-control-lg {% if data['has_email']  %}is-invalid{% endif %}" id="email" value="{{ set_value('email') }}">
+				{{ form_error('email', '<div class="invalid-feedback">', '</div>') }}
+			</div>
+			<div class="form-group m-b-15">
+				<label for="password">Contraseña</label>
+				<input type="password" class="form-control form-control-lg {% if data['has_password']  %}is-invalid{% endif %}" id="password">
+				{{ form_error('password', '<div class="invalid-feedback">', '</div>') }}
+			</div>
+			<div class="login-buttons">
+				<button type="submit" class="btn btn-success btn-block btn-lg">Entrar</button>
+			</div>
+			<div class="m-t-20 m-b-40 p-b-40 text-inverse">
+				<a href="{{ site_url('/auth/register') }}" class="btn btn-light btn-block btn-lg">Crear cuenta</a>
+				<br />
+				<a href="#">¿Olvidaste tu cuenta?</a>
+			</div>			
+		{{ form_close() }}
+	</div>
+	<!-- end login-content -->
+  	<!-- /.login-logo 
   	<div class="card">
     	<div class="card-body login-card-body">
       		<p class="login-box-msg">Iniciar Sessión</p>
@@ -28,5 +61,5 @@
 				<a href="#">¿Olvidaste tu cuenta?</a>
 			</p>
     	</div>
-    </div>
+    </div -->
 {% endblock %}

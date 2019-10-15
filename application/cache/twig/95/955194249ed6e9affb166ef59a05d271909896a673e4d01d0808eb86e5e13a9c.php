@@ -36,65 +36,84 @@ class __TwigTemplate_6dd5f0981a55dbdc4747c64011a18becc6864f67a2dd70b7ec072462452
         $macros = $this->macros;
         // line 1
         echo "<!DOCTYPE html>
-<html>
+<html lang=\"en\">
 <head>
-    <meta charset=\"utf-8\">
-    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">
-    <title>";
-        // line 6
+\t<meta charset=\"utf-8\" />
+\t<title>";
+        // line 5
         echo twig_escape_filter($this->env, (($__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4 = ($context["data"] ?? null)) && is_array($__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4) || $__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4 instanceof ArrayAccess ? ($__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4["title"] ?? null) : null), "html", null, true);
         echo "</title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
-    <!-- Font Awesome -->
-    <link rel=\"stylesheet\" href=\"";
-        // line 10
-        echo twig_escape_filter($this->env, base_url("assets/fontawesome-free/css/all.min.css"), "html", null, true);
-        echo "\">
-    <!-- Ionicons -->
-    <link rel=\"stylesheet\" href=\"https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css\">
-    <!-- icheck bootstrap -->
-    <link rel=\"stylesheet\" href=\"";
-        // line 14
-        echo twig_escape_filter($this->env, base_url("icheck-bootstrap/icheck-bootstrap.min.css"), "html", null, true);
-        echo "\">
-    <!-- Theme style -->
-    <link rel=\"stylesheet\" href=\"";
-        // line 16
-        echo twig_escape_filter($this->env, base_url("assets/css/adminlte.min.css"), "html", null, true);
-        echo "\">
-    <!-- Google Font: Source Sans Pro -->
-    <link href=\"https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700\" rel=\"stylesheet\">
+\t<meta content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\" name=\"viewport\" />
+\t<meta content=\"\" name=\"description\" />
+\t<meta content=\"\" name=\"author\" />
+\t
+\t<!-- ================== BEGIN BASE CSS STYLE ================== -->
+\t<link href=\"https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700\" rel=\"stylesheet\" />
+\t<link href=\"";
+        // line 12
+        echo twig_escape_filter($this->env, base_url("assets/css/default/app.min.css"), "html", null, true);
+        echo "\" rel=\"stylesheet\" />
+\t<link href=\"";
+        // line 13
+        echo twig_escape_filter($this->env, base_url("assets/plugins/fontawesome/css/fontawesome.css"), "html", null, true);
+        echo "\" rel=\"stylesheet\">
+\t<!-- ================== END BASE CSS STYLE ================== -->
 </head>
-<body class=\"hold-transition login-page\">
-    <div class=\"login-box\">
-        <div class=\"login-logo\">
-            <a href=\"";
-        // line 23
-        echo twig_escape_filter($this->env, site_url("/"), "html", null, true);
-        echo "\"><b>Sistema de Nominas</b></a>
-        </div>
-        ";
-        // line 25
+<body class=\"pace-top\">
+\t<!-- begin #page-loader -->
+\t<div id=\"page-loader\" class=\"fade show\"><span class=\"spinner\"></span></div>
+\t<!-- end #page-loader -->
+\t
+\t<!-- begin #page-container -->
+\t<div id=\"page-container\" class=\"fade\">
+\t\t<!-- begin login -->
+\t\t<div class=\"login login-with-news-feed\">
+\t\t\t<!-- begin news-feed -->
+\t\t\t<div class=\"news-feed\">
+\t\t\t\t<div class=\"news-image\" style=\"background-image: url(";
+        // line 27
+        echo twig_escape_filter($this->env, base_url("assets/img/login-bg/login-bg-11.jpg"), "html", null, true);
+        echo ")\"></div>
+\t\t\t\t<div class=\"news-caption\">
+\t\t\t\t\t<h4 class=\"caption-title\"><b>Sistema de Nomina</b></h4>
+\t\t\t\t\t<p>
+\t\t\t\t\t\tDirección Regional de Salud del Estado Barinas
+\t\t\t\t\t\t<br />
+\t\t\t\t\t\t<small>
+\t\t\t\t\t\t\tIng. Luis Cordero - luis.cordero@dirsaludbarinas.gob.ve
+\t\t\t\t\t\t</small>
+\t\t\t\t\t</p>
+\t\t\t\t</div>
+\t\t\t</div>
+\t\t\t<!-- end news-feed -->
+\t\t\t<!-- begin right-content -->
+\t\t\t<div class=\"right-content\">
+                ";
+        // line 42
         $this->displayBlock('content', $context, $blocks);
-        // line 26
-        echo "    </div>
-<!-- jQuery -->
-<script src=\"";
-        // line 28
-        echo twig_escape_filter($this->env, base_url("assets/jquery/jquery.min.js"), "html", null, true);
+        // line 43
+        echo "            </div>
+\t\t\t<!-- end right-container -->
+\t\t</div>
+\t\t<!-- end login -->
+    </div>
+\t<!-- end page container -->
+\t
+\t<!-- ================== BEGIN BASE JS ================== -->
+\t<script src=\"";
+        // line 51
+        echo twig_escape_filter($this->env, base_url("assets/js/app.min.js"), "html", null, true);
         echo "\"></script>
-<!-- Bootstrap 4 -->
-<script src=\"";
-        // line 30
-        echo twig_escape_filter($this->env, base_url("assets/bootstrap/js/bootstrap.bundle.min.js"), "html", null, true);
+\t<script src=\"";
+        // line 52
+        echo twig_escape_filter($this->env, base_url("assets/js/theme/default.min.js"), "html", null, true);
         echo "\"></script>
+\t<!-- ================== END BASE JS ================== -->
 </body>
-</html>
-";
+</html>";
     }
 
-    // line 25
+    // line 42
     public function block_content($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -112,43 +131,65 @@ class __TwigTemplate_6dd5f0981a55dbdc4747c64011a18becc6864f67a2dd70b7ec072462452
 
     public function getDebugInfo()
     {
-        return array (  98 => 25,  90 => 30,  85 => 28,  81 => 26,  79 => 25,  74 => 23,  64 => 16,  59 => 14,  52 => 10,  45 => 6,  38 => 1,);
+        return array (  117 => 42,  109 => 52,  105 => 51,  95 => 43,  93 => 42,  75 => 27,  58 => 13,  54 => 12,  44 => 5,  38 => 1,);
     }
 
     public function getSourceContext()
     {
         return new Source("<!DOCTYPE html>
-<html>
+<html lang=\"en\">
 <head>
-    <meta charset=\"utf-8\">
-    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">
-    <title>{{ data['title'] }}</title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
-    <!-- Font Awesome -->
-    <link rel=\"stylesheet\" href=\"{{ base_url('assets/fontawesome-free/css/all.min.css') }}\">
-    <!-- Ionicons -->
-    <link rel=\"stylesheet\" href=\"https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css\">
-    <!-- icheck bootstrap -->
-    <link rel=\"stylesheet\" href=\"{{ base_url('icheck-bootstrap/icheck-bootstrap.min.css') }}\">
-    <!-- Theme style -->
-    <link rel=\"stylesheet\" href=\"{{ base_url('assets/css/adminlte.min.css') }}\">
-    <!-- Google Font: Source Sans Pro -->
-    <link href=\"https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700\" rel=\"stylesheet\">
+\t<meta charset=\"utf-8\" />
+\t<title>{{ data['title'] }}</title>
+\t<meta content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\" name=\"viewport\" />
+\t<meta content=\"\" name=\"description\" />
+\t<meta content=\"\" name=\"author\" />
+\t
+\t<!-- ================== BEGIN BASE CSS STYLE ================== -->
+\t<link href=\"https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700\" rel=\"stylesheet\" />
+\t<link href=\"{{ base_url('assets/css/default/app.min.css') }}\" rel=\"stylesheet\" />
+\t<link href=\"{{ base_url('assets/plugins/fontawesome/css/fontawesome.css') }}\" rel=\"stylesheet\">
+\t<!-- ================== END BASE CSS STYLE ================== -->
 </head>
-<body class=\"hold-transition login-page\">
-    <div class=\"login-box\">
-        <div class=\"login-logo\">
-            <a href=\"{{ site_url('/') }}\"><b>Sistema de Nominas</b></a>
-        </div>
-        {% block content %}{% endblock %}
+<body class=\"pace-top\">
+\t<!-- begin #page-loader -->
+\t<div id=\"page-loader\" class=\"fade show\"><span class=\"spinner\"></span></div>
+\t<!-- end #page-loader -->
+\t
+\t<!-- begin #page-container -->
+\t<div id=\"page-container\" class=\"fade\">
+\t\t<!-- begin login -->
+\t\t<div class=\"login login-with-news-feed\">
+\t\t\t<!-- begin news-feed -->
+\t\t\t<div class=\"news-feed\">
+\t\t\t\t<div class=\"news-image\" style=\"background-image: url({{ base_url('assets/img/login-bg/login-bg-11.jpg') }})\"></div>
+\t\t\t\t<div class=\"news-caption\">
+\t\t\t\t\t<h4 class=\"caption-title\"><b>Sistema de Nomina</b></h4>
+\t\t\t\t\t<p>
+\t\t\t\t\t\tDirección Regional de Salud del Estado Barinas
+\t\t\t\t\t\t<br />
+\t\t\t\t\t\t<small>
+\t\t\t\t\t\t\tIng. Luis Cordero - luis.cordero@dirsaludbarinas.gob.ve
+\t\t\t\t\t\t</small>
+\t\t\t\t\t</p>
+\t\t\t\t</div>
+\t\t\t</div>
+\t\t\t<!-- end news-feed -->
+\t\t\t<!-- begin right-content -->
+\t\t\t<div class=\"right-content\">
+                {% block content %}{% endblock %}
+            </div>
+\t\t\t<!-- end right-container -->
+\t\t</div>
+\t\t<!-- end login -->
     </div>
-<!-- jQuery -->
-<script src=\"{{ base_url('assets/jquery/jquery.min.js') }}\"></script>
-<!-- Bootstrap 4 -->
-<script src=\"{{ base_url('assets/bootstrap/js/bootstrap.bundle.min.js') }}\"></script>
+\t<!-- end page container -->
+\t
+\t<!-- ================== BEGIN BASE JS ================== -->
+\t<script src=\"{{ base_url('assets/js/app.min.js') }}\"></script>
+\t<script src=\"{{ base_url('assets/js/theme/default.min.js') }}\"></script>
+\t<!-- ================== END BASE JS ================== -->
 </body>
-</html>
-", "layouts/auth.twig", "/home/luiscordero/Projects/dirsaludbarinas/drs_codeigniter/application/views/layouts/auth.twig");
+</html>", "layouts/auth.twig", "/home/luiscordero/Projects/dirsaludbarinas/drs_codeigniter/application/views/layouts/auth.twig");
     }
 }

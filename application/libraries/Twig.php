@@ -21,6 +21,13 @@ class Twig
 	private $paths = [];
 
 	/**
+	 * Reference to CodeIgniter instance
+	 *
+	 * @var object
+	 */
+	protected $CI;
+
+	/**
 	 * @var array Twig Environment Options
 	 * @see http://twig.sensiolabs.org/doc/api.html#environment-options
 	 */
@@ -41,7 +48,7 @@ class Twig
 		'form_open', 'form_close', 'form_error', 'form_hidden', 'set_value',
 //		'form_open_multipart', 'form_upload', 'form_submit', 'form_dropdown',
 //		'set_radio', 'set_select', 'set_checkbox',
-		'validation_errors'
+		'validation_errors',
 	];
 
 	/**
@@ -96,6 +103,7 @@ class Twig
 		];
 
 		$this->config = array_merge($this->config, $params);
+
 	}
 
 	protected function resetTwig()
@@ -153,6 +161,7 @@ class Twig
 	public function display($view, $params = [])
 	{
 		$CI =& get_instance();
+		$this->addGlobal("session", $CI->session);
 		$CI->output->set_output($this->render($view, $params));
 	}
 
