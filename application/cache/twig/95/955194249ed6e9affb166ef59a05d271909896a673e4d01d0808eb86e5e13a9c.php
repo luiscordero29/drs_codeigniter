@@ -39,10 +39,7 @@ class __TwigTemplate_6dd5f0981a55dbdc4747c64011a18becc6864f67a2dd70b7ec072462452
 <html lang=\"en\">
 <head>
 \t<meta charset=\"utf-8\" />
-\t<title>";
-        // line 5
-        echo twig_escape_filter($this->env, (($__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4 = ($context["data"] ?? null)) && is_array($__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4) || $__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4 instanceof ArrayAccess ? ($__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4["title"] ?? null) : null), "html", null, true);
-        echo "</title>
+\t<title>Sistema de Nomina | Dirección Regional de Salud del Estado Barinas</title>
 \t<meta content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\" name=\"viewport\" />
 \t<meta content=\"\" name=\"description\" />
 \t<meta content=\"\" name=\"author\" />
@@ -131,7 +128,7 @@ class __TwigTemplate_6dd5f0981a55dbdc4747c64011a18becc6864f67a2dd70b7ec072462452
 
     public function getDebugInfo()
     {
-        return array (  117 => 42,  109 => 52,  105 => 51,  95 => 43,  93 => 42,  75 => 27,  58 => 13,  54 => 12,  44 => 5,  38 => 1,);
+        return array (  114 => 42,  106 => 52,  102 => 51,  92 => 43,  90 => 42,  72 => 27,  55 => 13,  51 => 12,  38 => 1,);
     }
 
     public function getSourceContext()
@@ -140,7 +137,7 @@ class __TwigTemplate_6dd5f0981a55dbdc4747c64011a18becc6864f67a2dd70b7ec072462452
 <html lang=\"en\">
 <head>
 \t<meta charset=\"utf-8\" />
-\t<title>{{ data['title'] }}</title>
+\t<title>Sistema de Nomina | Dirección Regional de Salud del Estado Barinas</title>
 \t<meta content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\" name=\"viewport\" />
 \t<meta content=\"\" name=\"description\" />
 \t<meta content=\"\" name=\"author\" />

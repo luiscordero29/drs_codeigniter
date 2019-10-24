@@ -54,19 +54,23 @@ class __TwigTemplate_6274ac42066197e3d761d9b8e68017259619ed85f45ae103416d81c7744
 \t\t</div>
 \t</div>
 \t<!-- end login-header -->
-\t<!-- begin login-content -->
+\t";
+        // line 10
+        $this->loadTemplate("layouts/alerts.twig", "auth/register.twig", 10)->display($context);
+        // line 11
+        echo "\t<!-- begin login-content -->
 \t<div class=\"login-content\">
 \t\t";
-        // line 12
-        $context["attributes"] = ["class" => "margin-bottom-0"];
         // line 13
+        $context["attributes"] = ["class" => "margin-bottom-0"];
+        // line 14
         echo "\t\t";
         echo form_open("/auth/register", ($context["attributes"] ?? null));
         echo "
 \t\t\t<div class=\"form-group m-b-15\">
 \t\t\t\t<label for=\"cedula_identidad\">Cédula de Identidad</label>\t\t\t\t\t
 \t\t\t\t<input name=\"cedula_identidad\" type=\"text\" class=\"form-control form-control-lg ";
-        // line 16
+        // line 17
         if (form_error("cedula_identidad")) {
             echo "is-invalid";
         }
@@ -74,14 +78,14 @@ class __TwigTemplate_6274ac42066197e3d761d9b8e68017259619ed85f45ae103416d81c7744
         echo set_value("cedula_identidad");
         echo "\">
 \t\t\t\t";
-        // line 17
+        // line 18
         echo form_error("cedula_identidad", "<div class=\"invalid-feedback\">", "</div>");
         echo "
 \t\t\t</div>
             <div class=\"form-group m-b-15\">
 \t\t\t\t<label for=\"email\">E-mail</label>\t\t\t\t\t
 \t\t\t\t<input name=\"email\" type=\"text\" class=\"form-control form-control-lg ";
-        // line 21
+        // line 22
         if (form_error("email")) {
             echo "is-invalid";
         }
@@ -89,33 +93,33 @@ class __TwigTemplate_6274ac42066197e3d761d9b8e68017259619ed85f45ae103416d81c7744
         echo set_value("email");
         echo "\">
 \t\t\t\t";
-        // line 22
+        // line 23
         echo form_error("email", "<div class=\"invalid-feedback\">", "</div>");
         echo "
 \t\t\t</div>
 \t\t\t<div class=\"form-group m-b-15\">
 \t\t\t\t<label for=\"clave\">Clave</label>
 \t\t\t\t<input name=\"clave\" type=\"password\" class=\"form-control form-control-lg ";
-        // line 26
+        // line 27
         if (form_error("clave")) {
             echo "is-invalid";
         }
         echo "\" id=\"clave\">
 \t\t\t\t";
-        // line 27
+        // line 28
         echo form_error("clave", "<div class=\"invalid-feedback\">", "</div>");
         echo "
 \t\t\t</div>
             <div class=\"form-group m-b-15\">
 \t\t\t\t<label for=\"confirmar_clave\">Confirmar clave</label>
 \t\t\t\t<input name=\"confirmar_clave\" type=\"password\" class=\"form-control form-control-lg ";
-        // line 31
+        // line 32
         if (form_error("confirmar_clave")) {
             echo "is-invalid";
         }
         echo "\" id=\"confirmar_clave\">
 \t\t\t\t";
-        // line 32
+        // line 33
         echo form_error("confirmar_clave", "<div class=\"invalid-feedback\">", "</div>");
         echo "
 \t\t\t</div>
@@ -124,14 +128,14 @@ class __TwigTemplate_6274ac42066197e3d761d9b8e68017259619ed85f45ae103416d81c7744
 \t\t\t</div>
 \t\t\t<div class=\"m-t-20 m-b-40 p-b-40 text-inverse\">
 \t\t\t\t<a href=\"";
-        // line 38
+        // line 39
         echo twig_escape_filter($this->env, site_url("/auth/login"), "html", null, true);
         echo "\" class=\"btn btn-light btn-block btn-lg\">Iniciar Sesión</a>
 \t\t\t\t<br />
 \t\t\t\t<a href=\"#\">¿Olvidaste tu cuenta?</a>
 \t\t\t</div>
 \t\t";
-        // line 42
+        // line 43
         echo form_close();
         echo "
     </div>
@@ -150,7 +154,7 @@ class __TwigTemplate_6274ac42066197e3d761d9b8e68017259619ed85f45ae103416d81c7744
 
     public function getDebugInfo()
     {
-        return array (  135 => 42,  128 => 38,  119 => 32,  113 => 31,  106 => 27,  100 => 26,  93 => 22,  85 => 21,  78 => 17,  70 => 16,  63 => 13,  61 => 12,  50 => 3,  46 => 2,  35 => 1,);
+        return array (  139 => 43,  132 => 39,  123 => 33,  117 => 32,  110 => 28,  104 => 27,  97 => 23,  89 => 22,  82 => 18,  74 => 17,  67 => 14,  65 => 13,  61 => 11,  59 => 10,  50 => 3,  46 => 2,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -164,6 +168,7 @@ class __TwigTemplate_6274ac42066197e3d761d9b8e68017259619ed85f45ae103416d81c7744
 \t\t</div>
 \t</div>
 \t<!-- end login-header -->
+\t{% include 'layouts/alerts.twig' %}
 \t<!-- begin login-content -->
 \t<div class=\"login-content\">
 \t\t{% set attributes = {'class': 'margin-bottom-0'} %}
