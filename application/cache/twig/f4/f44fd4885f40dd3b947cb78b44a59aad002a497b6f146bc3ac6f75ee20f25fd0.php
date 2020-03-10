@@ -132,13 +132,17 @@ class __TwigTemplate_6274ac42066197e3d761d9b8e68017259619ed85f45ae103416d81c7744
         echo twig_escape_filter($this->env, site_url("/auth/login"), "html", null, true);
         echo "\" class=\"btn btn-light btn-block btn-lg\">Iniciar Sesión</a>
 \t\t\t\t<br />
-\t\t\t\t<a href=\"#\">¿Olvidaste tu cuenta?</a>
+\t\t\t\t<a href=\"";
+        // line 41
+        echo twig_escape_filter($this->env, site_url("/auth/resetpassword"), "html", null, true);
+        echo "\">¿Olvidaste tu cuenta?</a>
 \t\t\t</div>
 \t\t";
         // line 43
         echo form_close();
         echo "
     </div>
+\t<!-- end login-content -->
 ";
     }
 
@@ -154,7 +158,7 @@ class __TwigTemplate_6274ac42066197e3d761d9b8e68017259619ed85f45ae103416d81c7744
 
     public function getDebugInfo()
     {
-        return array (  139 => 43,  132 => 39,  123 => 33,  117 => 32,  110 => 28,  104 => 27,  97 => 23,  89 => 22,  82 => 18,  74 => 17,  67 => 14,  65 => 13,  61 => 11,  59 => 10,  50 => 3,  46 => 2,  35 => 1,);
+        return array (  142 => 43,  137 => 41,  132 => 39,  123 => 33,  117 => 32,  110 => 28,  104 => 27,  97 => 23,  89 => 22,  82 => 18,  74 => 17,  67 => 14,  65 => 13,  61 => 11,  59 => 10,  50 => 3,  46 => 2,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -199,10 +203,11 @@ class __TwigTemplate_6274ac42066197e3d761d9b8e68017259619ed85f45ae103416d81c7744
 \t\t\t<div class=\"m-t-20 m-b-40 p-b-40 text-inverse\">
 \t\t\t\t<a href=\"{{ site_url('/auth/login') }}\" class=\"btn btn-light btn-block btn-lg\">Iniciar Sesión</a>
 \t\t\t\t<br />
-\t\t\t\t<a href=\"#\">¿Olvidaste tu cuenta?</a>
+\t\t\t\t<a href=\"{{ site_url('/auth/resetpassword') }}\">¿Olvidaste tu cuenta?</a>
 \t\t\t</div>
 \t\t{{ form_close() }}
     </div>
+\t<!-- end login-content -->
 {% endblock %}", "auth/register.twig", "/home/luiscordero/Projects/dirsaludbarinas/drs_codeigniter/application/views/auth/register.twig");
     }
 }

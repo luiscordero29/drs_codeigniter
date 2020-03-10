@@ -104,7 +104,10 @@ class __TwigTemplate_a40735a74c9fa91d6291283f7a9472b456a10f4e490a279c2ec683012c7
         echo twig_escape_filter($this->env, site_url("/auth/register"), "html", null, true);
         echo "\" class=\"btn btn-light btn-block btn-lg\">Crear cuenta</a>
 \t\t\t\t<br />
-\t\t\t\t<a href=\"#\">¿Olvidaste tu cuenta?</a>
+\t\t\t\t<a href=\"";
+        // line 31
+        echo twig_escape_filter($this->env, site_url("/auth/resetpassword"), "html", null, true);
+        echo "\">¿Olvidaste tu cuenta?</a>
 \t\t\t</div>\t\t\t
 \t\t";
         // line 33
@@ -127,7 +130,7 @@ class __TwigTemplate_a40735a74c9fa91d6291283f7a9472b456a10f4e490a279c2ec683012c7
 
     public function getDebugInfo()
     {
-        return array (  111 => 33,  104 => 29,  95 => 23,  89 => 22,  82 => 18,  74 => 17,  67 => 14,  65 => 13,  61 => 11,  59 => 10,  50 => 3,  46 => 2,  35 => 1,);
+        return array (  114 => 33,  109 => 31,  104 => 29,  95 => 23,  89 => 22,  82 => 18,  74 => 17,  67 => 14,  65 => 13,  61 => 11,  59 => 10,  50 => 3,  46 => 2,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -162,7 +165,7 @@ class __TwigTemplate_a40735a74c9fa91d6291283f7a9472b456a10f4e490a279c2ec683012c7
 \t\t\t<div class=\"m-t-20 m-b-40 p-b-40 text-inverse\">
 \t\t\t\t<a href=\"{{ site_url('/auth/register') }}\" class=\"btn btn-light btn-block btn-lg\">Crear cuenta</a>
 \t\t\t\t<br />
-\t\t\t\t<a href=\"#\">¿Olvidaste tu cuenta?</a>
+\t\t\t\t<a href=\"{{ site_url('/auth/resetpassword') }}\">¿Olvidaste tu cuenta?</a>
 \t\t\t</div>\t\t\t
 \t\t{{ form_close() }}
 \t</div>

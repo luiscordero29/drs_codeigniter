@@ -69,7 +69,7 @@ class __TwigTemplate_6dd5f0981a55dbdc4747c64011a18becc6864f67a2dd70b7ec072462452
 \t\t\t<div class=\"news-feed\">
 \t\t\t\t<div class=\"news-image\" style=\"background-image: url(";
         // line 27
-        echo twig_escape_filter($this->env, base_url("assets/img/login-bg/login-bg-11.jpg"), "html", null, true);
+        echo twig_escape_filter($this->env, base_url("assets/img/login-bg/drs.jpg"), "html", null, true);
         echo ")\"></div>
 \t\t\t\t<div class=\"news-caption\">
 \t\t\t\t\t<h4 class=\"caption-title\"><b>Sistema de Nomina</b></h4>
@@ -159,7 +159,7 @@ class __TwigTemplate_6dd5f0981a55dbdc4747c64011a18becc6864f67a2dd70b7ec072462452
 \t\t<div class=\"login login-with-news-feed\">
 \t\t\t<!-- begin news-feed -->
 \t\t\t<div class=\"news-feed\">
-\t\t\t\t<div class=\"news-image\" style=\"background-image: url({{ base_url('assets/img/login-bg/login-bg-11.jpg') }})\"></div>
+\t\t\t\t<div class=\"news-image\" style=\"background-image: url({{ base_url('assets/img/login-bg/drs.jpg') }})\"></div>
 \t\t\t\t<div class=\"news-caption\">
 \t\t\t\t\t<h4 class=\"caption-title\"><b>Sistema de Nomina</b></h4>
 \t\t\t\t\t<p>

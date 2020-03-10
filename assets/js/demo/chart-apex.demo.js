@@ -1,6 +1,6 @@
 /*
 Template Name: Color Admin - Responsive Admin Dashboard Template build with Twitter Bootstrap 4
-Version: 4.4.0
+Version: 4.6.0
 Author: Sean Ngu
 Website: http://www.seantheme.com/color-admin/admin/
 */
@@ -37,10 +37,10 @@ var handleLineChart = function() {
 			width: 3
 		},
 		series: [{
-			name: 'High - 2019',
+			name: 'High - 2020',
 			data: [28, 29, 33, 36, 32, 32, 33]
 		}, {
-			name: 'Low - 2019',
+			name: 'Low - 2020',
 			data: [12, 11, 14, 18, 17, 13, 13]
 		}],
 		grid: {
@@ -325,12 +325,12 @@ var handleMixedChart = function() {
 		},
 		colors: [COLOR_BLUE_DARKER, COLOR_TEAL, COLOR_ORANGE],
 		title: {
-			text: 'XYZ - Stock Analysis (2012 - 2019)',
+			text: 'XYZ - Stock Analysis (2012 - 2020)',
 			align: 'left',
 			offsetX: 110
 		},
 		xaxis: {
-			categories: [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019],
+			categories: [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020],
 			axisBorder: {
 				show: true,
 				color: COLOR_SILVER_TRANSPARENT_5,

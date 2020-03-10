@@ -58,7 +58,7 @@ $route['default_controller'] = 'auth/index';
 $route['auth/login'] = 'auth/index';
 $route['auth/register'] = 'auth/register';
 $route['auth/resetpassword'] = 'auth/resetpassword';
-$route['auth/verification'] = 'auth/verification';
+$route['auth/verification/(:any)'] = 'auth/verification/$1';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

@@ -1341,11 +1341,11 @@ class __TwigTemplate_3f342cc5153cbdcedddebfb23f55264de526c6e22fe4e990dbdff73c2aa
 \t\t\t\t\t\t\t\t\t\t\t\t\t<td class=\"panel\">
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t<a href=\"";
         // line 1306
-        echo twig_escape_filter($this->env, site_url(("auth/validation/" . twig_get_attribute($this->env, $this->source, ($context["data"] ?? null), "usu_llave", [], "any", false, false, false, 1306))), "html", null, true);
+        echo twig_escape_filter($this->env, site_url(("auth/verification/" . twig_get_attribute($this->env, $this->source, ($context["data"] ?? null), "usu_llave", [], "any", false, false, false, 1306))), "html", null, true);
         echo "\">
                                                             ";
         // line 1307
-        echo twig_escape_filter($this->env, site_url(("auth/validation/" . twig_get_attribute($this->env, $this->source, ($context["data"] ?? null), "usu_llave", [], "any", false, false, false, 1307))), "html", null, true);
+        echo twig_escape_filter($this->env, site_url(("auth/verification/" . twig_get_attribute($this->env, $this->source, ($context["data"] ?? null), "usu_llave", [], "any", false, false, false, 1307))), "html", null, true);
         echo "
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t</a>
 \t\t\t\t\t\t\t\t\t\t\t\t\t</td>
@@ -2737,8 +2737,8 @@ class __TwigTemplate_3f342cc5153cbdcedddebfb23f55264de526c6e22fe4e990dbdff73c2aa
 \t\t\t\t\t\t\t\t\t\t\t\t</tr>
 \t\t\t\t\t\t\t\t\t\t\t\t<tr>
 \t\t\t\t\t\t\t\t\t\t\t\t\t<td class=\"panel\">
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t<a href=\"{{ site_url('auth/validation/' ~ data.usu_llave) }}\">
-                                                            {{ site_url('auth/validation/' ~ data.usu_llave) }}
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t<a href=\"{{ site_url('auth/verification/' ~ data.usu_llave) }}\">
+                                                            {{ site_url('auth/verification/' ~ data.usu_llave) }}
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t</a>
 \t\t\t\t\t\t\t\t\t\t\t\t\t</td>
 \t\t\t\t\t\t\t\t\t\t\t\t</tr>

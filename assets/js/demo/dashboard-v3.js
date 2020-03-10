@@ -1,6 +1,6 @@
 /*
 Template Name: Color Admin - Responsive Admin Dashboard Template build with Twitter Bootstrap 4
-Version: 4.4.0
+Version: 4.6.0
 Author: Sean Ngu
 Website: http://www.seantheme.com/color-admin/admin/
 */
@@ -494,8 +494,8 @@ var handleDateRangeFilter = function() {
 		format: 'MM/DD/YYYY',
 		startDate: moment().subtract(7, 'days'),
 		endDate: moment(),
-		minDate: '01/06/2019',
-		maxDate: '07/06/2019',
+		minDate: '01/06/2020',
+		maxDate: '07/06/2020',
 		dateLimit: { days: 60 },
 		showDropdowns: true,
 		showWeekNumbers: true,

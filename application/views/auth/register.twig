@@ -38,8 +38,9 @@
 			<div class="m-t-20 m-b-40 p-b-40 text-inverse">
 				<a href="{{ site_url('/auth/login') }}" class="btn btn-light btn-block btn-lg">Iniciar Sesión</a>
 				<br />
-				<a href="#">¿Olvidaste tu cuenta?</a>
+				<a href="{{ site_url('/auth/resetpassword') }}">¿Olvidaste tu cuenta?</a>
 			</div>
 		{{ form_close() }}
     </div>
+	<!-- end login-content -->
 {% endblock %}
