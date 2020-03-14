@@ -1,0 +1,80 @@
+{% extends "layouts/app.twig" %}
+{% block css %}
+    <link href="{{ base_url('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}" rel="stylesheet">
+    <link href="{{ base_url('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css') }}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+	<!-- begin breadcrumb -->
+    <ol class="breadcrumb float-xl-right">
+        <li class="breadcrumb-item"><a href="{{ site_url('dashboard') }}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{{ site_url('procesos') }}">Procesos de Pagos</a></li>
+        <li class="breadcrumb-item active">Crear de procesos de pagos</li>
+    </ol>
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Procesos de Pagos</h1>
+    <!-- end page-header -->
+	{% include 'layouts/alerts.twig' %}
+    <!-- begin panel -->
+    <div class="panel panel-inverse">
+        <div class="panel-heading">
+            <h4 class="panel-title">Crear de procesos de pagos</h4>
+        </div>
+        <div class="panel-body panel-form">
+			{% set attributes = {'id': 'form', 'class': 'form-horizontal form-bordered'} %}
+			{{ form_open('/procesos/crear-proceso-de-pago', attributes) }}
+				<div class="form-group row">
+					<label class="col-lg-4 col-form-label" for="pro_descripcion">Descripción</label>
+					<div class="col-lg-8">
+						<input type="text" name="pro_descripcion" class="form-control {% if form_error('pro_descripcion') %}is-invalid{% endif %}" value="{{ set_value('pro_descripcion') }}" />
+						{{ form_error('pro_descripcion', '<div class="invalid-feedback">', '</div>') }}
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-lg-4 col-form-label" for="pro_fecha_inicio">Período</label>
+					<div class="col-lg-8">
+						<div class="input-group input-daterange">
+							<input type="text" name="pro_fecha_inicio" class="form-control {% if form_error('pro_fecha_inicio') %}is-invalid{% endif %}" value="{{ set_value('pro_fecha_inicio') }}" placeholder="Fecha Inicio" />
+							<span class="input-group-addon">-</span>
+							<input type="text" name="pro_fecha_fin" class="form-control {% if form_error('pro_fecha_fin') %}is-invalid{% endif %}" value="{{ set_value('pro_fecha_fin') }}" placeholder="Fecha Fin" />
+							{{ form_error('pro_fecha_inicio', '<div class="invalid-feedback">', '</div>') }}
+							{{ form_error('pro_fecha_fin', '<div class="invalid-feedback">', '</div>') }}
+						</div>
+					</div>
+				</div>
+			{{ form_close() }}
+		</div>
+		<div class="panel-footer">
+			<div class="clearfix">
+                <a href="{{ site_url('procesos') }}" class="btn btn-default pull-left"><i class="fa fa-reply"></i> Atrás</a>
+                <button id="button_submit" type="button" class="btn btn-success pull-right"><i class="fa fa-save"></i> Guardar</button>
+            </div>
+		</div>
+    </div>
+    <!-- end panel -->
+{% endblock %}
+{% block scripts %}
+	<script src="{{ base_url('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js') }}"></script>
+	<script src="{{ base_url('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js') }}"></script>
+    <script>
+        var main_menu = new Vue({
+            el: '#main-menu',
+            data: {
+                isActiveNomina: true,
+                isActiveNominaProcesos: true,
+                isActiveConfiguracion: false,
+                isActiveConfiguracionUsuarios: false,
+            }
+        });
+		$(document).ready(function() {
+			$('#button_submit').on('click', function(){
+				$('#form').submit();
+			});
+			$('.input-daterange').datepicker({
+				todayHighlight: true,
+				language: 'es',
+				format: 'dd/mm/yyyy',
+			});
+		});
+    </script>
+{% endblock %}

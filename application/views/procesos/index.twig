@@ -1,0 +1,36 @@
+{% extends "layouts/app.twig" %}
+{% block content %}
+	<!-- begin breadcrumb -->
+    <ol class="breadcrumb float-xl-right">
+        <li class="breadcrumb-item"><a href="{{ site_url('dashboard') }}">Dashboard</a></li>
+        <li class="breadcrumb-item active">Procesos de Pagos</li>
+    </ol>
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Procesos de Pagos</h1>
+    <!-- end page-header -->
+    <!-- begin panel -->
+    <div class="panel panel-inverse">
+        <div class="panel-heading">
+            <h4 class="panel-title">Lista de procesos de pagos</h4>
+            <a href="{{ site_url('procesos/crear-proceso-de-pago') }}" class="btn btn-secondary btn-sm pull-right"><i class="far fa-plus-square"></i> Crear Proceso</a>
+        </div>
+        <div class="panel-body">
+            
+        </div>
+    </div>
+    <!-- end panel -->
+{% endblock %}
+{% block scripts %}
+    <script>
+        var main_menu = new Vue({
+            el: '#main-menu',
+            data: {
+                isActiveNomina: true,
+                isActiveNominaProcesos: true,
+                isActiveConfiguracion: false,
+                isActiveConfiguracionUsuarios: false,
+            }
+        });
+    </script>
+{% endblock %}

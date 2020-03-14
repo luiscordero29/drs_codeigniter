@@ -51,14 +51,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 # Dashboard
 $route['dashboard/index'] = 'dashboard/index';
-$route['auth/logout'] = 'dashboard/logout';
-
+# Procesos de Pagos
+$route['procesos'] = 'procesos/index';
+$route['procesos/crear-proceso-de-pago'] = 'procesos/create';
 # Auth
 $route['default_controller'] = 'auth/index';
 $route['auth/login'] = 'auth/index';
+$route['auth/logout'] = 'dashboard/logout';
+$route['auth/password'] = 'dashboard/password';
 $route['auth/register'] = 'auth/register';
 $route['auth/resetpassword'] = 'auth/resetpassword';
 $route['auth/verification/(:any)'] = 'auth/verification/$1';
-
+# Error
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

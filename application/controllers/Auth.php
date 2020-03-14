@@ -32,7 +32,7 @@ class Auth extends CI_Controller {
 
 	public function register() {
 		$this->form_validation->set_rules('cedula_identidad', 'Cédula de Identidad', 'required|is_unique[usuarios.usu_cedula_identidad]|max_length[10]|min_length[6]|integer');
-		$this->form_validation->set_rules('email', 'E-mail ó Cédula de Identidad', 'required|valid_email|is_unique[usuarios.usu_email]');
+		$this->form_validation->set_rules('email', 'E-mail', 'required|valid_email|is_unique[usuarios.usu_email]');
         $this->form_validation->set_rules('clave', 'Clave', 'required');
         $this->form_validation->set_rules('confirmar_clave', 'Confirmar clave', 'required|matches[clave]');
 		if ($this->form_validation->run() == FALSE) {

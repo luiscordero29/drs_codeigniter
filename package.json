@@ -17,7 +17,8 @@
   },
   "homepage": "https://github.com/luiscordero29/drs_codeigniter#readme",
   "dependencies": {
-    "admin-lte": "3.0.0-beta.2"
+    "admin-lte": "3.0.0-beta.2",
+    "vue": "^2.6.11"
   },
   "devDependencies": {
     "gulp": "^4.0.2"

@@ -10,8 +10,7 @@ class Dashboard extends CI_Controller {
 	}
 
 	public function index() {
-		echo 'Hola Dashboard';
-		echo var_dump($this->session->userdata('auth'));
+		$this->twig->display('dashboard/home');
 	}
 
 	public function logout() {
