@@ -8,17 +8,17 @@
 	<!-- begin breadcrumb -->
     <ol class="breadcrumb float-xl-right">
         <li class="breadcrumb-item"><a href="{{ site_url('dashboard') }}">Dashboard</a></li>
-        <li class="breadcrumb-item active">Procesos de Pagos</li>
+        <li class="breadcrumb-item active">Tipos de Nominas</li>
     </ol>
     <!-- end breadcrumb -->
     <!-- begin page-header -->
-    <h1 class="page-header">Procesos de Pagos</h1>
+    <h1 class="page-header">Tipos de Nominas</h1>
     <!-- end page-header -->
     <!-- begin panel -->
     <div class="panel panel-inverse">
         <div class="panel-heading">
-            <h4 class="panel-title">Lista de procesos de pagos</h4>
-            <a href="{{ site_url('procesos/crear-proceso-de-pago') }}" class="btn btn-secondary btn-sm pull-right"><i class="far fa-plus-square"></i> Crear Proceso</a>
+            <h4 class="panel-title">Lista de tipo de nominas</h4>
+            <a href="{{ site_url('tipos-de-nominas/crear-tipo-de-nomina') }}" class="btn btn-secondary btn-sm pull-right"><i class="far fa-plus-square"></i> Crear Tipo de Nomina</a>
         </div>
         <div class="panel-body">
             <div class="table-responsive">
@@ -27,9 +27,6 @@
                         <tr>
                             <th width="1%">ID</th>
                             <th class="text-nowrap">Descripción</th>
-                            <th class="text-nowrap">Fecha Inicio</th>
-                            <th class="text-nowrap">Fecha Fin</th>
-                            <th class="text-nowrap">Estado</th>
                             <th class="text-nowrap">Usuario</th>
                             <th data-orderable="false"></th>
                         </tr>
@@ -51,10 +48,10 @@
             el: '#main-menu',
             data: {
                 isActiveNomina: true,
-                isActiveNominaProcesos: true,
+                isActiveNominaProcesos: false,
                 isActiveConfiguracion: false,
                 isActiveConfiguracionUsuarios: false,
-                isActiveTiposNominas: false,
+                isActiveTiposNominas: true,
             }
         });  
        
@@ -64,7 +61,7 @@
                 "processing": true,
                 "serverSide": true,
                 "type": "POST",
-                "ajax": "{{ site_url('procesos/json') }}",
+                "ajax": "{{ site_url('tipos-de-nominas/json') }}",
                 "language": {
                     "sProcessing":     "Procesando...",
                     "sLengthMenu":     "Mostrar _MENU_ registros",
@@ -96,7 +93,7 @@
             });        
         }); 
 
-        function destroy(pro_id) {
+        function destroy(tno_id) {
             Swal.fire({
                 title: 'Elimiar Proceso',
                 text: 'Desea eliminar proceso',
@@ -109,13 +106,13 @@
             }).then((result) => {
                 if (result.value) {
                     $.getJSON( "{{ site_url('/dashboard/security') }}", function( csrf ) {
-                        var url = "{{ site_url('/procesos/eliminar-proceso-de-pago') }}";
+                        var url = "{{ site_url('/tipos-de-nominas/eliminar-tipo-de-nomina') }}";
                         $.ajax({
                             url: url,
                             type: 'POST',
                             dataType: 'json',
                             data: {
-                                pro_id: pro_id,
+                                tno_id: tno_id,
                                 {{ security.get_csrf_token_name }}: csrf.hash,
                             },
                             success: function (data) {

@@ -8,7 +8,8 @@
 	<!-- begin breadcrumb -->
     <ol class="breadcrumb float-xl-right">
         <li class="breadcrumb-item"><a href="{{ site_url('dashboard') }}">Dashboard</a></li>
-        <li class="breadcrumb-item active">Procesos de Pagos</li>
+        <li class="breadcrumb-item"><a href="{{ site_url('procesos') }}">Procesos de Pagos</a></li>
+        <li class="breadcrumb-item active">Lista de Nominas</li>
     </ol>
     <!-- end breadcrumb -->
     <!-- begin page-header -->
@@ -17,8 +18,8 @@
     <!-- begin panel -->
     <div class="panel panel-inverse">
         <div class="panel-heading">
-            <h4 class="panel-title">Lista de procesos de pagos</h4>
-            <a href="{{ site_url('procesos/crear-proceso-de-pago') }}" class="btn btn-secondary btn-sm pull-right"><i class="far fa-plus-square"></i> Crear Proceso</a>
+            <h4 class="panel-title">Lista de Nominas - Proceso ID: {{ proceso.pro_id }} - Periodo ({{ proceso.pro_fecha_inicio|date("m/d/Y") }} - {{ proceso.pro_fecha_fin|date("m/d/Y") }}) - Estado ({{ proceso.est_descripcion }})</h4>
+            <a href="{{ site_url('procesos/crear-proceso-de-pago') }}" class="btn btn-secondary btn-sm pull-right"><i class="far fa-plus-square"></i> Crear Tipo Nomina</a>
         </div>
         <div class="panel-body">
             <div class="table-responsive">
@@ -51,10 +52,10 @@
             el: '#main-menu',
             data: {
                 isActiveNomina: true,
-                isActiveNominaProcesos: true,
+                isActiveNominaProcesos: false,
                 isActiveConfiguracion: false,
                 isActiveConfiguracionUsuarios: false,
-                isActiveTiposNominas: false,
+                isActiveTiposNominas: true,
             }
         });  
        

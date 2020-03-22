@@ -92,6 +92,7 @@
 							</a>
 							<ul class="sub-menu">
 								<li v-bind:class="{ active: isActiveNominaProcesos }"><a href="{{ site_url('procesos') }}">Procesos de Pago</a></li>
+								<li v-bind:class="{ active: isActiveTiposNominas }"><a href="{{ site_url('tipos-de-nominas') }}">Tipos Nominas</a></li>
 							</ul>
 						</li>
 						<li class="has-sub" v-bind:class="{ active: isActiveConfiguracion }">
@@ -132,6 +133,7 @@
 	<script src="{{ base_url('assets/js/app.min.js') }}"></script>
 	<script src="{{ base_url('assets/js/theme/default.min.js') }}"></script>
 	<script src="{{ base_url('assets/plugins/vue/vue.min.js') }}"></script>
+	<script src="{{ base_url('assets/plugins/axios/axios.min.js') }}"></script>
 	<!-- ================== END BASE JS ================== -->
 	{% block scripts %}{% endblock %}
 </body>

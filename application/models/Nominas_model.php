@@ -1,17 +1,14 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-Class Procesos_model extends CI_MODEL
+Class Nominas_model extends CI_MODEL
 {
 	public function __construct() {
 		parent::__construct();
 	}
 	
-	public function fecha_check($fecha) {
-        $date = explode('/', $fecha);
-        if (count($date) == 3) {
-			return true;
-        } else {
-            return false;
-        }
+	public function get_proceso($pro_id) {
+        $this->db->join('estados', 'estados.est_id=procesos.est_id');
+        $query = $this->db->get_where('procesos', array('pro_id' => $pro_id));
+        return $query->row();
 	}
 
 	public function fecha_to_date($fecha) {

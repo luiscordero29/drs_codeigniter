@@ -13,6 +13,14 @@ class Dashboard extends CI_Controller {
 		$this->twig->display('dashboard/home');
 	}
 
+	public function security() {
+		$csrf = array(
+			'name' => $this->security->get_csrf_token_name(),
+			'hash' => $this->security->get_csrf_hash()
+		);
+		echo json_encode($csrf);
+	}
+
 	public function logout() {
 		$this->Dashboard_model->auth_logout();
 	}

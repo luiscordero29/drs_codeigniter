@@ -162,6 +162,7 @@ class Twig
 	{
 		$CI =& get_instance();
 		$this->addGlobal("session", $CI->session);
+		$this->addGlobal("security", $CI->security);
 		$CI->output->set_output($this->render($view, $params));
 	}
 

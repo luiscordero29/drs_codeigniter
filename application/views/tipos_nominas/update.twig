@@ -1,0 +1,62 @@
+{% extends "layouts/app.twig" %}
+{% block content %}
+	<!-- begin breadcrumb -->
+    <ol class="breadcrumb float-xl-right">
+        <li class="breadcrumb-item"><a href="{{ site_url('dashboard') }}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{{ site_url('procesos') }}">Tipos de Nominas</a></li>
+        <li class="breadcrumb-item active">Editar tipo de nomina</li>
+    </ol>
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Tipos de Nominas</h1>
+    <!-- end page-header -->
+	{% include 'layouts/alerts.twig' %}
+    <!-- begin panel -->
+    <div class="panel panel-inverse">
+        <div class="panel-heading">
+            <h4 class="panel-title">Editar tipo de nomina</h4>
+        </div>
+        <div class="panel-body panel-form">
+			{% set attributes = {'id': 'form', 'class': 'form-horizontal form-bordered'} %}
+			{{ form_open('tipos-de-nominas/editar-tipo-de-nomina-'.tipo_pago.tno_id, attributes) }}
+				<div class="form-group row">
+					<label class="col-lg-4 col-form-label" for="tno_descripcion">Descripción</label>
+					<div class="col-lg-8">
+						<input type="text" name="tno_descripcion" class="form-control {% if form_error('tno_descripcion') %}is-invalid{% endif %}" value="{{ tipo_pago.tno_descripcion }}" />
+						{{ form_error('tno_descripcion', '<div class="invalid-feedback">', '</div>') }}
+					</div>
+				</div>
+				<input type="hidden" name="tno_id" value="{{ tipo_pago.tno_id }}" />
+			{{ form_close() }}
+		</div>
+		<div class="panel-footer">
+			<div class="clearfix">
+                <a href="{{ site_url('tipos-de-nominas') }}" class="btn btn-default pull-left"><i class="fa fa-reply"></i> Atrás</a>
+                <button v-on:click="formSubmit" id="button_submit" type="button" class="btn btn-success pull-right"><i class="fa fa-save"></i> Guardar</button>
+            </div>
+		</div>
+    </div>
+    <!-- end panel -->
+{% endblock %}
+{% block scripts %}
+	<script>
+        var main_menu = new Vue({
+            el: '#main-menu',
+            data: {
+                isActiveNomina: true,
+                isActiveNominaProcesos: false,
+                isActiveConfiguracion: false,
+                isActiveConfiguracionUsuarios: false,
+                isActiveTiposNominas: true,
+            }
+        });
+		var content = new Vue({
+            el: '#content',
+			methods: {
+				formSubmit: function(event) {
+					$('#form').submit();
+				}
+			}
+        });
+    </script>
+{% endblock %}

@@ -51,9 +51,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 # Dashboard
 $route['dashboard/index'] = 'dashboard/index';
+$route['dashboard/security'] = 'dashboard/security';
 # Procesos de Pagos
 $route['procesos'] = 'procesos/index';
 $route['procesos/crear-proceso-de-pago'] = 'procesos/create';
+$route['procesos/eliminar-proceso-de-pago'] = 'procesos/destroy';
+# Nominas 
+$route['procesos/lista-de-nominas-(:num)'] = 'nominas/index/$1';
+# Tipos de Nominas 
+$route['tipos-de-nominas'] = 'tipos_nominas/index';
+$route['tipos-de-nominas/json'] = 'tipos_nominas/json';
+$route['tipos-de-nominas/crear-tipo-de-nomina'] = 'tipos_nominas/create';
+$route['tipos-de-nominas/editar-tipo-de-nomina-(:num)'] = 'tipos_nominas/update/$1';
+$route['tipos-de-nominas/eliminar-tipo-de-nomina'] = 'tipos_nominas/delete';
 # Auth
 $route['default_controller'] = 'auth/index';
 $route['auth/login'] = 'auth/index';

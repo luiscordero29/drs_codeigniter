@@ -47,7 +47,7 @@
 		<div class="panel-footer">
 			<div class="clearfix">
                 <a href="{{ site_url('procesos') }}" class="btn btn-default pull-left"><i class="fa fa-reply"></i> Atrás</a>
-                <button id="button_submit" type="button" class="btn btn-success pull-right"><i class="fa fa-save"></i> Guardar</button>
+                <button v-on:click="formSubmit" id="button_submit" type="button" class="btn btn-success pull-right"><i class="fa fa-save"></i> Guardar</button>
             </div>
 		</div>
     </div>
@@ -64,12 +64,18 @@
                 isActiveNominaProcesos: true,
                 isActiveConfiguracion: false,
                 isActiveConfiguracionUsuarios: false,
+                isActiveTiposNominas: false,
             }
         });
+		var content = new Vue({
+            el: '#content',
+			methods: {
+				formSubmit: function(event) {
+					$('#form').submit();
+				}
+			}
+        });
 		$(document).ready(function() {
-			$('#button_submit').on('click', function(){
-				$('#form').submit();
-			});
 			$('.input-daterange').datepicker({
 				todayHighlight: true,
 				language: 'es',

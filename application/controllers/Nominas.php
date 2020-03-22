@@ -1,17 +1,20 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Procesos extends CI_Controller {
+class Nominas extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
         $this->load->model('Dashboard_model');
-        $this->load->model('Procesos_model');
+        $this->load->model('Nominas_model');
         $this->Dashboard_model->auth();
 	}
 
-	public function index() {
-		$this->twig->display('procesos/index');
+	public function index($pro_id) {
+        $data = array(
+            'proceso' => $this->Nominas_model->get_proceso($pro_id)
+        );
+        $this->twig->display('nominas/index', $data);
 	}
 
 	public function json() {
@@ -30,10 +33,10 @@ class Procesos extends CI_Controller {
             $row[] = $item->est_descripcion;
             $row[] = $item->usu_email;
             $actions = '<div class="text-right">';
-            $actions .= '<a href="'.site_url('procesos/lista-de-nominas-'.$item->pro_id).'" class="btn btn-secondary btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Lista de Nominas"><i class="far fa-folder-open"></i></a>';
+            $actions .= '<a href="'.site_url('procesos/lista-de-nominas-'.$item->pro_id).'" class="btn btn-secondary btn-sm mr-2"><i class="far fa-folder-open"></i></a>';
             $actions .= '<button data-id="'.$item->pro_id.'" type="button" class="btn-proceso-report btn btn-success btn-sm mr-2"><i class="far fa-file-excel"></i></button>';
             $actions .= '<button data-id="'.$item->pro_id.'" type="button" class="btn-proceso-lock btn btn-warning btn-sm mr-2"><i class="fas fa-lock"></i></button>';
-            $actions .= '<button onclick="destroy('.$item->pro_id.')" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="far fa-trash-alt"></i></button>';
+            $actions .= '<button onclick="destroy('.$item->pro_id.')" type="button" class="btn btn-danger btn-sm"  data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="far fa-trash-alt"></i></button>';
             $actions .= '</div>';
             $row[] = $actions;
             $data[] = $row;
@@ -60,6 +63,10 @@ class Procesos extends CI_Controller {
 			$this->session->set_flashdata('alert_success', 'Proceso registrado');
 			redirect('procesos/crear-proceso-de-pago');
         }
+	}
+
+	public function nominas($pro_id) {
+		$this->twig->display('nominas/index');
 	}
 
 	public function pro_fecha_inicio_check() {
