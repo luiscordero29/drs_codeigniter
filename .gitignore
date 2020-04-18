@@ -16,3 +16,6 @@ vendor
 
 # npm package
 node_modules
+
+# Uploads 
+upload/*
