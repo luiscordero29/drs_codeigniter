@@ -17,26 +17,24 @@ class Nominas extends CI_Controller {
         $this->twig->display('nominas/index', $data);
 	}
 
-	public function json() {
-		
-		$list = $this->Procesos_model->data();
+	public function json($pro_id) {
+        $list = $this->Nominas_model->data($pro_id);
+        
         $data = array();
 		$no = $this->input->post('start');
 		
         foreach ($list as $item) {
             $no++;
             $row = array();
-            $row[] = $item->pro_id;
-            $row[] = $item->pro_descripcion;
-            $row[] = $this->Procesos_model->date_to_fecha($item->pro_fecha_inicio);
-            $row[] = $this->Procesos_model->date_to_fecha($item->pro_fecha_fin);
+            $row[] = $item->nom_id;
+            $row[] = $item->tno_descripcion;
             $row[] = $item->est_descripcion;
             $row[] = $item->usu_email;
             $actions = '<div class="text-right">';
-            $actions .= '<a href="'.site_url('procesos/lista-de-nominas-'.$item->pro_id).'" class="btn btn-secondary btn-sm mr-2"><i class="far fa-folder-open"></i></a>';
-            $actions .= '<button data-id="'.$item->pro_id.'" type="button" class="btn-proceso-report btn btn-success btn-sm mr-2"><i class="far fa-file-excel"></i></button>';
-            $actions .= '<button data-id="'.$item->pro_id.'" type="button" class="btn-proceso-lock btn btn-warning btn-sm mr-2"><i class="fas fa-lock"></i></button>';
-            $actions .= '<button onclick="destroy('.$item->pro_id.')" type="button" class="btn btn-danger btn-sm"  data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="far fa-trash-alt"></i></button>';
+            $actions .= '<button onclick="btn_import('.$item->nom_id.')" type="button" class="btn-proceso-report btn btn-dark btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Importar"><i class="fas fa-upload"></i></button>';
+            $actions .= '<button onclick="btn_export('.$item->nom_id.')" type="button" class="btn-proceso-report btn btn-dark btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Exportar"><i class="fas fa-download"></i></button>';
+            $actions .= '<button onclick="btn_close('.$item->nom_id.')" type="button" class="btn-proceso-lock btn btn-warning btn-sm mr-2"><i class="fas fa-lock"></i></button>';
+            $actions .= '<button onclick="destroy('.$item->nom_id.')" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="far fa-trash-alt"></i></button>';
             $actions .= '</div>';
             $row[] = $actions;
             $data[] = $row;
@@ -44,8 +42,8 @@ class Nominas extends CI_Controller {
 		
 		$json = array(
 			'draw' => $this->input->post_get('draw'), 
-			'recordsTotal' => $this->Procesos_model->recordsTotal(), 
-			'recordsFiltered' => $this->Procesos_model->recordsFiltered(), 
+			'recordsTotal' => $this->Nominas_model->recordsTotal($pro_id), 
+			'recordsFiltered' => $this->Nominas_model->recordsFiltered($pro_id), 
 			'data' => $data,
 		);
 
@@ -53,41 +51,63 @@ class Nominas extends CI_Controller {
 	}
 
 	public function create() {
-		$this->form_validation->set_rules('pro_descripcion', 'Descripción', 'required|max_length[100]');
-		$this->form_validation->set_rules('pro_fecha_inicio', 'Fecha Inicio', 'required|callback_pro_fecha_inicio_check');
-        $this->form_validation->set_rules('pro_fecha_fin', 'Feca Fin', 'required|callback_pro_fecha_fin_check|callback_rango_check');
-		if ($this->form_validation->run() == FALSE) {
-            $this->twig->display('procesos/create');
-        } else {			
-			$this->Procesos_model->store();
-			$this->session->set_flashdata('alert_success', 'Proceso registrado');
-			redirect('procesos/crear-proceso-de-pago');
-        }
-	}
-
-	public function nominas($pro_id) {
-		$this->twig->display('nominas/index');
-	}
-
-	public function pro_fecha_inicio_check() {
-		$this->form_validation->set_message('pro_fecha_inicio_check', 'Error en la fecha de inicio');
-		return $this->Procesos_model->fecha_check($this->input->post('pro_fecha_inicio'));
-	}
-	
-	public function pro_fecha_fin_check() {
-		$this->form_validation->set_message('pro_fecha_fin_check', 'Error en la fecha de fin');
-		return $this->Procesos_model->fecha_check($this->input->post('pro_fecha_fin'));
-	}
-	
-	public function rango_check() {
-		$this->form_validation->set_message('rango_check', 'La fecha de fin debe ser superior a la fecha inicio');
-		return $this->Procesos_model->rango_check();
-	}
-	
-	public function destroy() {
 		if ($this->input->method(TRUE) == 'POST') {
-			$data = $this->Procesos_model->destroy();
+			$data = $this->Nominas_model->store();
 			echo json_encode($data);	
         }
 	}
+
+	public function tipos_nominas($pro_id) {
+        $data = $this->Nominas_model->tipos_nominas($pro_id);
+        echo json_encode($data);
+    }
+    
+    public function import($pro_id) {
+        $ruta =  FCPATH."/upload/import/".time();
+		if(!is_dir($ruta)){
+		    mkdir($ruta, 0777);
+		}
+        $config['upload_path'] = $ruta;
+        $config['allowed_types'] = 'dbf';
+        $this->load->library('upload', $config);
+        if ($this->upload->do_upload('file')){
+            $upload_data = $this->upload->data();
+            switch ($this->input->post_get('tipo')) {
+                case 'PERSONAL':
+                    $data = $this->Nominas_model->import_taloge($upload_data);
+                    break;
+                case 'ASIGNACIONES':
+                    $data = $this->Nominas_model->import_taloas($upload_data);
+                    break;
+                case 'DEDUCCIONES':
+                    $data = $this->Nominas_model->import_talode($upload_data);
+                    break;
+                default:
+                    $data = array(
+                        'title' => 'Error',
+                        'text' => 'Opción no permitida',
+                        'icon' => 'error',
+                    );
+                    break;
+            }
+        }else{
+            $data = array(
+                'title' => 'Error',
+                'text' => $this->upload->display_errors(),
+                'icon' => 'error',
+            );
+        }
+        echo json_encode($data);
+	}
+	
+	public function destroy($pro_id) {
+		if ($this->input->method(TRUE) == 'POST') {
+			$data = $this->Nominas_model->destroy($pro_id);
+			echo json_encode($data);	
+        }
+    }
+    
+    public function test() {
+        $this->Nominas_model->import_personal('/home/luiscordero/Projects/dirsaludbarinas/drs_codeigniter/upload/import/1587005049/TALOGE.DBF');
+    }
 }

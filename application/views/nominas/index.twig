@@ -19,7 +19,7 @@
     <div class="panel panel-inverse">
         <div class="panel-heading">
             <h4 class="panel-title">Lista de Nominas - Proceso ID: {{ proceso.pro_id }} - Periodo ({{ proceso.pro_fecha_inicio|date("m/d/Y") }} - {{ proceso.pro_fecha_fin|date("m/d/Y") }}) - Estado ({{ proceso.est_descripcion }})</h4>
-            <a href="{{ site_url('procesos/crear-proceso-de-pago') }}" class="btn btn-secondary btn-sm pull-right"><i class="far fa-plus-square"></i> Crear Tipo Nomina</a>
+            <button id="create" type="button" class="btn btn-secondary btn-sm pull-right"><i class="far fa-plus-square"></i> Crear Tipo Nomina</button>
         </div>
         <div class="panel-body">
             <div class="table-responsive">
@@ -27,9 +27,7 @@
                     <thead>
                         <tr>
                             <th width="1%">ID</th>
-                            <th class="text-nowrap">Descripción</th>
-                            <th class="text-nowrap">Fecha Inicio</th>
-                            <th class="text-nowrap">Fecha Fin</th>
+                            <th class="text-nowrap">Tipo de Nomina</th>
                             <th class="text-nowrap">Estado</th>
                             <th class="text-nowrap">Usuario</th>
                             <th data-orderable="false"></th>
@@ -40,6 +38,82 @@
         </div>
     </div>
     <!-- end panel -->
+    <!-- begin modal -->
+    <div id="modal-tipo-de-nomina" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tipo de Nomina</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label class="col-lg-3 col-form-label" for="tno_id">Tipo de Nomina</label>
+                        <div class="col-lg-9">
+                            <div class="input-group">
+                                <select class="form-control" id="tno_id">
+                                    <option value="-1" selected>Cargando...</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="store" type="button" class="btn btn-primary btn-success"><i class="fa fa-save"></i> Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end modal -->
+    <!-- begin modal -->
+    <div id="modal-import" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Importar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="fg-tipo" class="form-group row">
+                        <label class="col-lg-3 col-form-label" for="tipo">Tipo</label>
+                        <div class="col-lg-9">
+                            <div class="input-group">
+                                <select class="form-control" id="tipo">
+                                    <option value="-1" selected>Seleccione</option>
+                                    <option value="PERSONAL">PERSONAL - TALOGE</option>
+                                    <option value="ASIGNACIONES">ASIGNACIONES - TALOAS</option>
+                                    <option value="DEDUCCIONES">DEDUCCIONES - TALODE</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="fg-file" class="form-group row">
+                        <label class="col-lg-3 col-form-label" for="file">Archivo</label>
+                        <div class="col-lg-9">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="file">
+                                <label id="file-name" class="custom-file-label">Explorar Archivo</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="processing" class="text-center">
+                        <span class="fa-5x">
+                            <i class="fas fa-cog fa-spin"></i>
+                        </span>
+                        <p>Procesando...</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="import" data-nom_id="" type="button" class="btn btn-primary btn-success"><i class="fas fa-upload"></i> Inportar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end modal -->
 {% endblock %}
 {% block scripts %}
 	<script src="{{ base_url('assets/plugins/datatables.net/js/jquery.dataTables.min.js') }}"></script>
@@ -52,20 +126,18 @@
             el: '#main-menu',
             data: {
                 isActiveNomina: true,
-                isActiveNominaProcesos: false,
+                isActiveNominaProcesos: true,
                 isActiveConfiguracion: false,
                 isActiveConfiguracionUsuarios: false,
-                isActiveTiposNominas: true,
+                isActiveTiposNominas: false,
             }
-        });  
-       
-        
+        });
         $( document ).ready(function() {
             $('#data-table-default').DataTable( {
                 "processing": true,
                 "serverSide": true,
                 "type": "POST",
-                "ajax": "{{ site_url('procesos/json') }}",
+                "ajax": "{{ site_url('procesos/lista-de-nominas-' ~ proceso.pro_id ~ '/json') }}",
                 "language": {
                     "sProcessing":     "Procesando...",
                     "sLengthMenu":     "Mostrar _MENU_ registros",
@@ -97,7 +169,52 @@
             });        
         }); 
 
-        function destroy(pro_id) {
+        $('#create').click(function () {
+            $('#tno_id').html('<option selected>Cargando...</option>');
+            $.getJSON("{{ site_url('procesos/lista-tipos-de-nominas-' ~ proceso.pro_id ) }}" , function( res ) {
+                $('#tno_id').html('<option value="-1">Selecione...</option>');
+                res.forEach(item => {
+                    $('#tno_id').append('<option value="'+item.tno_id+'">'+item.tno_descripcion+'</option>');
+                });
+                $('#modal-tipo-de-nomina').modal('show');
+            });
+        });
+
+        $('#store').click(function () {
+            var tno_id = $('#tno_id').val();
+            if(tno_id != -1) {
+                $.getJSON( "{{ site_url('/dashboard/security') }}", function( csrf ) {
+                    var url = "{{ site_url('/procesos/crear-nomina') }}";
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            tno_id: tno_id,
+                            pro_id: {{ proceso.pro_id }},
+                            {{ security.get_csrf_token_name }}: csrf.hash,
+                        },
+                        success: function (data) {
+                            $('#modal-tipo-de-nomina').modal('hide');
+                            $('#data-table-default').DataTable().ajax.reload();
+                            Swal.fire({
+                                title: data.title,
+                                text: data.text,
+                                icon: data.icon,
+                            });
+                        },
+                    });
+                });
+            } else {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Seleccione un tipo de nomina',
+                    icon: 'error',
+                });
+            }
+        });
+
+        function destroy(nom_id) {
             Swal.fire({
                 title: 'Elimiar Proceso',
                 text: 'Desea eliminar proceso',
@@ -110,13 +227,13 @@
             }).then((result) => {
                 if (result.value) {
                     $.getJSON( "{{ site_url('/dashboard/security') }}", function( csrf ) {
-                        var url = "{{ site_url('/procesos/eliminar-proceso-de-pago') }}";
+                        var url = "{{ site_url('procesos/lista-de-nominas-' ~ proceso.pro_id ~ '/eliminar-nomina') }}";
                         $.ajax({
                             url: url,
                             type: 'POST',
                             dataType: 'json',
                             data: {
-                                pro_id: pro_id,
+                                nom_id: nom_id,
                                 {{ security.get_csrf_token_name }}: csrf.hash,
                             },
                             success: function (data) {
@@ -132,5 +249,83 @@
                 }
             });      
         }
+
+        function btn_import(nom_id) {
+            $('#import').data('nom_id', nom_id);
+            $('#file-name').html('Explorar Archivo');
+            $('#tipo').val('-1').trigger('change');
+            $('#processing').hide();
+            $('#fg-tipo').show();
+            $('#fg-file').show();
+            $('#import').removeAttr('disabled');
+            $('#modal-import').modal('show');
+        }
+
+        $('#import').click(function () {
+            $(this).attr('disabled', 'disabled');
+            var nom_id = $(this).data('nom_id');
+            var tipo = $('#tipo').val();
+            var file = $('#file').val();
+			if (tipo != -1) {
+                var extension = file.split('.');
+                if (extension[1] == 'DBF' || extension[1] == 'dbf') {
+                    $.getJSON( "{{ site_url('/dashboard/security') }}", function( csrf ) {
+                        var formData = new FormData();
+                        formData.append('nom_id', nom_id);
+                        formData.append('tipo', tipo);
+                        formData.append('{{ security.get_csrf_token_name }}', csrf.hash);
+                        formData.append('file', $('#file')[0].files[0], file);
+                        $.ajax({
+                            url: "{{ site_url('procesos/lista-de-nominas-' ~ proceso.pro_id ~ '/import') }}",
+                            type: 'POST',
+                            data: formData,
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            beforeSend: function() {
+                                $('#processing').show();
+                                $('#fg-tipo').hide();
+                                $('#fg-file').hide();
+                                $('#import').attr('disabled', 'disabled');
+                            },
+                            success: function(res) {
+                                $('#modal-import').modal('hide');
+                                var data = JSON.parse(res);
+                                Swal.fire({
+                                    title: data.title,
+                                    text: data.text,
+                                    icon: data.icon,
+                                });
+                            },
+                            error: function() {
+                                $('#modal-import').modal('hide');
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: 'Error al Subir Archivo',
+                                    icon: 'error',
+                                });
+                            }
+                        });
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Seleccione un archivo tipo excel',
+                        icon: 'error',
+                    });
+                }
+            } else {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Seleccione un tipo',
+                    icon: 'error',
+                });
+            }                
+        });
+
+        $('#file').change(function() {
+            $('#file-name').html($(this).val());
+        });
+        
     </script>
 {% endblock %}
