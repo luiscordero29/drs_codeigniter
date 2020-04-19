@@ -19,7 +19,7 @@
     <div class="panel panel-inverse">
         <div class="panel-heading">
             <h4 class="panel-title">Lista de Nominas - Proceso ID: {{ proceso.pro_id }} - Periodo ({{ proceso.pro_fecha_inicio|date("m/d/Y") }} - {{ proceso.pro_fecha_fin|date("m/d/Y") }}) - Estado ({{ proceso.est_descripcion }})</h4>
-            <button id="create" type="button" class="btn btn-secondary btn-sm pull-right"><i class="far fa-plus-square"></i> Crear Tipo Nomina</button>
+            <a href="{{ site_url('procesos/lista-de-nominas-' ~ proceso.pro_id ~ '/create') }}" class="btn btn-secondary btn-sm pull-right"><i class="far fa-plus-square"></i> Crear Tipo Nomina</a>
         </div>
         <div class="panel-body">
             <div class="table-responsive">
@@ -28,6 +28,7 @@
                         <tr>
                             <th width="1%">ID</th>
                             <th class="text-nowrap">Tipo de Nomina</th>
+                            <th class="text-nowrap">Descripción</th>
                             <th class="text-nowrap">Estado</th>
                             <th class="text-nowrap">Usuario</th>
                             <th data-orderable="false"></th>
@@ -38,35 +39,6 @@
         </div>
     </div>
     <!-- end panel -->
-    <!-- begin modal -->
-    <div id="modal-tipo-de-nomina" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Tipo de Nomina</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group row">
-                        <label class="col-lg-3 col-form-label" for="tno_id">Tipo de Nomina</label>
-                        <div class="col-lg-9">
-                            <div class="input-group">
-                                <select class="form-control" id="tno_id">
-                                    <option value="-1" selected>Cargando...</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button id="store" type="button" class="btn btn-primary btn-success"><i class="fa fa-save"></i> Guardar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- end modal -->
     <!-- begin modal -->
     <div id="modal-import" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -168,51 +140,6 @@
                 }
             });        
         }); 
-
-        $('#create').click(function () {
-            $('#tno_id').html('<option selected>Cargando...</option>');
-            $.getJSON("{{ site_url('procesos/lista-tipos-de-nominas-' ~ proceso.pro_id ) }}" , function( res ) {
-                $('#tno_id').html('<option value="-1">Selecione...</option>');
-                res.forEach(item => {
-                    $('#tno_id').append('<option value="'+item.tno_id+'">'+item.tno_descripcion+'</option>');
-                });
-                $('#modal-tipo-de-nomina').modal('show');
-            });
-        });
-
-        $('#store').click(function () {
-            var tno_id = $('#tno_id').val();
-            if(tno_id != -1) {
-                $.getJSON( "{{ site_url('/dashboard/security') }}", function( csrf ) {
-                    var url = "{{ site_url('/procesos/crear-nomina') }}";
-                    $.ajax({
-                        url: url,
-                        type: 'POST',
-                        dataType: 'json',
-                        data: {
-                            tno_id: tno_id,
-                            pro_id: {{ proceso.pro_id }},
-                            {{ security.get_csrf_token_name }}: csrf.hash,
-                        },
-                        success: function (data) {
-                            $('#modal-tipo-de-nomina').modal('hide');
-                            $('#data-table-default').DataTable().ajax.reload();
-                            Swal.fire({
-                                title: data.title,
-                                text: data.text,
-                                icon: data.icon,
-                            });
-                        },
-                    });
-                });
-            } else {
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Seleccione un tipo de nomina',
-                    icon: 'error',
-                });
-            }
-        });
 
         function destroy(nom_id) {
             Swal.fire({

@@ -1,0 +1,81 @@
+{% extends "layouts/app.twig" %}
+{% block css %}
+    <link href="{{ base_url('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}" rel="stylesheet">
+    <link href="{{ base_url('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css') }}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+	<!-- begin breadcrumb -->
+    <ol class="breadcrumb float-xl-right">
+        <li class="breadcrumb-item"><a href="{{ site_url('dashboard') }}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{{ site_url('procesos') }}">Procesos de Pagos</a></li>
+        <li class="breadcrumb-item "><a href="{{ site_url('procesos/lista-de-nominas-' ~ proceso.pro_id) }}">Lista de Nominas</a></li>
+        <li class="breadcrumb-item active">Crear tipo de monina</li>
+    </ol>
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Procesos de Pagos</h1>
+    <!-- end page-header -->
+	{% include 'layouts/alerts.twig' %}
+    <!-- begin panel -->
+    <div class="panel panel-inverse">
+        <div class="panel-heading">
+            <h4 class="panel-title">Crear tipo de monina</h4>
+        </div>
+        <div class="panel-body panel-form">
+			{% set attributes = {'id': 'form', 'class': 'form-horizontal form-bordered'} %}
+			{{ form_open('procesos/lista-de-nominas-' ~ proceso.pro_id ~ '/create', attributes) }}
+                <div class="form-group row">
+                    <label class="col-lg-4 col-form-label" for="tno_id">Tipo</label>
+                    <div class="col-lg-8">
+                        <select id="tno_id" name="tno_id" class="form-control {% if form_error('tno_id') %}is-invalid{% endif %}">
+                            <option value="" {% if not set_value('tno_id') %}selected{% endif %}>Seleccione</option>
+                            {% for tipo in tipos %}
+                            <option value="{{ tipo.tno_id }}" {% if set_value('tno_id') == tipo.tno_id %}selected{% endif %}>{{ tipo.tno_descripcion }}</option>
+                            {% endfor %}
+                        </select>
+                        {{ form_error('tno_id', '<div class="invalid-feedback">', '</div>') }}
+                    </div>
+                </div>
+				<div class="form-group row">
+					<label class="col-lg-4 col-form-label" for="nom_description">Descripción</label>
+					<div class="col-lg-8">
+						<input id="nom_description" type="text" name="nom_description" class="form-control {% if form_error('nom_description') %}is-invalid{% endif %}" value="{{ set_value('nom_description') }}" />
+						{{ form_error('nom_description', '<div class="invalid-feedback">', '</div>') }}
+					</div>
+				</div>
+                <input type="hidden" name="pro_id" value="{{ proceso.pro_id }}">
+			{{ form_close() }}
+		</div>
+		<div class="panel-footer">
+			<div class="clearfix">
+                <a href="{{ site_url('procesos/lista-de-nominas-' ~ proceso.pro_id) }}" class="btn btn-default pull-left"><i class="fa fa-reply"></i> Atrás</a>
+                <button v-on:click="formSubmit" id="button_submit" type="button" class="btn btn-success pull-right"><i class="fa fa-save"></i> Guardar</button>
+            </div>
+		</div>
+    </div>
+    <!-- end panel -->
+{% endblock %}
+{% block scripts %}
+	<script src="{{ base_url('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js') }}"></script>
+	<script src="{{ base_url('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js') }}"></script>
+    <script>
+        var main_menu = new Vue({
+            el: '#main-menu',
+            data: {
+                isActiveNomina: true,
+                isActiveNominaProcesos: true,
+                isActiveConfiguracion: false,
+                isActiveConfiguracionUsuarios: false,
+                isActiveTiposNominas: false,
+            }
+        });
+		var content = new Vue({
+            el: '#content',
+			methods: {
+				formSubmit: function(event) {
+					$('#form').submit();
+				}
+			}
+        });
+    </script>
+{% endblock %}

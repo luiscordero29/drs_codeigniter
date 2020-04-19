@@ -11,19 +11,35 @@ Class Nominas_model extends CI_MODEL
         return $query->row();
 	}
 
-	public function tipos_nominas($pro_id) {
-        $sql = 'select * from drs_tipos_nominas tn where tn.tno_id not in (select tno_id from drs_nominas n where n.pro_id = ?) order by tn.tno_descripcion asc';
-        $query = $this->db->query($sql, array($pro_id));
+	public function tipos_nominas() {
+        $this->db->order_by('tno_descripcion', 'asc');
+        $query = $this->db->get('tipos_nominas');
         return $query->result();
-	}
+    }
+    
+    public function nom_descripcion_check() {
+        $pro_id = $this->input->post('pro_id');
+        $nom_description = $this->input->post('nom_description');
+        $this->db->from('nominas');
+        $this->db->where('pro_id', $pro_id);
+        $this->db->where('nom_description', $nom_description);
+	    $total = $this->db->count_all_results();
+        if ($total > 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 	
 	public function store() {
         # request
 	    $tno_id = $this->input->post('tno_id');
-	    $pro_id = $this->input->post('pro_id');
+        $pro_id = $this->input->post('pro_id');
+        $nom_description = $this->input->post('nom_description');
 	    # insert
         $this->db->set('tno_id', $tno_id);
         $this->db->set('pro_id', $pro_id);
+        $this->db->set('nom_description', $nom_description);
         $this->db->set('est_id', 1);
         $this->db->set('usu_id', $this->session->auth->usu_id);
         $this->db->set('created_at', date('Y-m-d H:i:s'));

@@ -58,11 +58,10 @@ $route['procesos/crear-proceso-de-pago'] = 'procesos/create';
 $route['procesos/eliminar-proceso-de-pago'] = 'procesos/destroy';
 # Nominas 
 $route['procesos/lista-de-nominas-(:num)'] = 'nominas/index/$1';
+$route['procesos/lista-de-nominas-(:num)/create'] = 'nominas/create/$1';
 $route['procesos/lista-de-nominas-(:num)/json'] = 'nominas/json/$1';
 $route['procesos/lista-de-nominas-(:num)/eliminar-nomina'] = 'nominas/destroy/$1';
 $route['procesos/lista-de-nominas-(:num)/import'] = 'nominas/import/$1';
-$route['procesos/lista-tipos-de-nominas-(:num)'] = 'nominas/tipos_nominas/$1';
-$route['procesos/crear-nomina'] = 'nominas/create';
 # Tipos de Nominas 
 $route['tipos-de-nominas'] = 'tipos_nominas/index';
 $route['tipos-de-nominas/json'] = 'tipos_nominas/json';

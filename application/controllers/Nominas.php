@@ -28,6 +28,7 @@ class Nominas extends CI_Controller {
             $row = array();
             $row[] = $item->nom_id;
             $row[] = $item->tno_descripcion;
+            $row[] = $item->nom_description;
             $row[] = $item->est_descripcion;
             $row[] = $item->usu_email;
             $actions = '<div class="text-right">';
@@ -48,14 +49,28 @@ class Nominas extends CI_Controller {
 		);
 
 		echo json_encode($json);
-	}
-
-	public function create() {
-		if ($this->input->method(TRUE) == 'POST') {
-			$data = $this->Nominas_model->store();
-			echo json_encode($data);	
+    }
+    
+    public function create($pro_id) {
+		$this->form_validation->set_rules('tno_id', 'Tipo', 'required');
+		$this->form_validation->set_rules('nom_description', 'Descripción', 'required|max[100]|callback_nom_descripcion_check');
+		if ($this->form_validation->run() == FALSE) {
+            $data = array(
+                'proceso' => $this->Nominas_model->get_proceso($pro_id),
+                'tipos' => $this->Nominas_model->tipos_nominas(),
+            );
+            $this->twig->display('nominas/create', $data);
+        } else {			
+			$this->Nominas_model->store();
+			$this->session->set_flashdata('alert_success', 'Proceso registrado');
+			redirect('procesos/lista-de-nominas-'.$pro_id.'/create');
         }
 	}
+
+    public function nom_descripcion_check() {
+		$this->form_validation->set_message('nom_descripcion_check', 'El campo descripción debe contener un valor único para este proceso.');
+		return $this->Nominas_model->nom_descripcion_check();
+    }
 
 	public function tipos_nominas($pro_id) {
         $data = $this->Nominas_model->tipos_nominas($pro_id);
