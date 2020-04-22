@@ -31,7 +31,7 @@
                             <th class="text-nowrap">Descripción</th>
                             <th class="text-nowrap">Estado</th>
                             <th class="text-nowrap">Usuario</th>
-                            <th data-orderable="false"></th>
+                            <th data-orderable="false" style="width: 180px;"></th>
                         </tr>
                     </thead>						
 				</table>
@@ -297,6 +297,44 @@
             var url = "{{ site_url('procesos/lista-de-nominas/export-talode') }}" + '/' + nom_id;
 			window.location = url;
         });
+
+
+        function btn_close(nom_id) {
+            Swal.fire({
+                title: 'Importante',
+                text: "Desea cerrar la nomina",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si',
+                cancelButtonText: 'No',
+            }).then((result) => {
+                if (result.value) {
+                    $.getJSON( "{{ site_url('/dashboard/security') }}", function( csrf ) {
+                        var url = "{{ site_url('procesos/lista-de-nominas-' ~ proceso.pro_id ~ '/cerrar-nomina') }}";
+                        $.ajax({
+                            url: url,
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                nom_id: nom_id,
+                                {{ security.get_csrf_token_name }}: csrf.hash,
+                            },
+                            success: function (data) {
+                                $('#data-table-default').DataTable().ajax.reload();
+                                Swal.fire({
+                                    title: data.title,
+                                    text: data.text,
+                                    icon: data.icon,
+                                });
+                            },
+                        });
+                    });
+                }
+            })
+            console.log(nom_id);
+        }
         
     </script>
 {% endblock %}

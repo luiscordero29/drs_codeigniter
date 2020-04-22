@@ -353,4 +353,37 @@ Class Nominas_model extends CI_MODEL
 
         return $this->dbutil->csv_from_result($query, $delimiter, $newline, $enclos);
     }
+
+    public function cerrar_nomina() {
+        $nom_id = $this->input->post('nom_id');
+        # contar nominas_ge
+        $this->db->from('nominas_ge');
+        $this->db->where('nom_id', $nom_id);
+        $nominas_ge = $this->db->count_all_results();
+        $this->db->from('nominas_as');
+        $nominas_as = $this->db->count_all_results();
+        if($nominas_ge <= 0) {
+            $data = array(
+                'title' => 'Error',
+                'text' => 'Importe el archivo TALOGE.DBF para cerrar la nomina',
+                'icon' => 'error',
+            );
+        } elseif ($nominas_as <= 0) {
+            $data = array(
+                'title' => 'Error',
+                'text' => 'Importe el archivo TALOAS.DBF para cerrar la nomina',
+                'icon' => 'error',
+            );
+        } else {
+            $this->db->set('est_id', 2);
+            $this->db->where('nom_id', $nom_id);
+            $this->db->update('nominas');
+            $data = array(
+                'title' => 'Exito',
+                'text' => 'Nomina Cerrada',
+                'icon' => 'success',
+            );
+        }
+        return $data;
+    }
 }

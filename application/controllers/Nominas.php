@@ -32,9 +32,13 @@ class Nominas extends CI_Controller {
             $row[] = $item->est_descripcion;
             $row[] = $item->usu_email;
             $actions = '<div class="text-right">';
-            $actions .= '<button onclick="btn_import('.$item->nom_id.')" type="button" class="btn-proceso-report btn btn-dark btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Importar"><i class="fas fa-upload"></i></button>';
+            if ($item->est_id == 1) {
+                $actions .= '<button onclick="btn_import('.$item->nom_id.')" type="button" class="btn-proceso-report btn btn-dark btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Importar"><i class="fas fa-upload"></i></button>'; 
+            }
             $actions .= '<button onclick="btn_export('.$item->nom_id.')" type="button" class="btn-proceso-report btn btn-dark btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Exportar"><i class="fas fa-download"></i></button>';
-            $actions .= '<button onclick="btn_close('.$item->nom_id.')" type="button" class="btn-proceso-lock btn btn-warning btn-sm mr-2"><i class="fas fa-lock"></i></button>';
+            if ($item->est_id == 1) {
+                $actions .= '<button onclick="btn_close('.$item->nom_id.')" type="button" class="btn-proceso-lock btn btn-warning btn-sm mr-2"><i class="fas fa-lock"></i></button>';
+            }
             $actions .= '<button onclick="destroy('.$item->nom_id.')" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="far fa-trash-alt"></i></button>';
             $actions .= '</div>';
             $row[] = $actions;
@@ -156,5 +160,12 @@ class Nominas extends CI_Controller {
         $name = 'exportar_talode_'.date('YmdHis').'.csv';
         
         force_download($name, $data);
+    }
+
+    public function cerrar_nomina() {
+        if ($this->input->method(TRUE) == 'POST') {
+			$data = $this->Nominas_model->cerrar_nomina();
+			echo json_encode($data);	
+        }
     }
 }

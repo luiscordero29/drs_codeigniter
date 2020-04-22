@@ -62,6 +62,7 @@ $route['procesos/lista-de-nominas-(:num)/create'] = 'nominas/create/$1';
 $route['procesos/lista-de-nominas-(:num)/json'] = 'nominas/json/$1';
 $route['procesos/lista-de-nominas-(:num)/eliminar-nomina'] = 'nominas/destroy/$1';
 $route['procesos/lista-de-nominas-(:num)/import'] = 'nominas/import/$1';
+$route['procesos/lista-de-nominas-(:num)/cerrar-nomina'] = 'nominas/cerrar_nomina';
 $route['procesos/lista-de-nominas/export-taloge/(:num)'] = 'nominas/export_taloge/$1';
 $route['procesos/lista-de-nominas/export-taloas/(:num)'] = 'nominas/export_taloas/$1';
 $route['procesos/lista-de-nominas/export-talode/(:num)'] = 'nominas/export_talode/$1';
