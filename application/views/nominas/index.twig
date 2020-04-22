@@ -86,6 +86,25 @@
         </div>
     </div>
     <!-- end modal -->
+    <!-- begin modal -->
+    <div id="modal-export" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Exportar Nomina</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <button id="export_taloge" data-id="-1" type="button" class="btn btn-excel btn-block btn-sm"><i class="far fa-file-excel"></i> PERSONAL - TALOGE</button>
+                    <button id="export_taloas" data-id="-1" type="button" class="btn btn-excel btn-block btn-sm"><i class="far fa-file-excel"></i> ASIGNACIONES - TALOAS</button>
+                    <button id="export_talode" data-id="-1" type="button" class="btn btn-excel btn-block btn-sm"><i class="far fa-file-excel"></i> DEDUCCIONES - TALODE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end modal -->
 {% endblock %}
 {% block scripts %}
 	<script src="{{ base_url('assets/plugins/datatables.net/js/jquery.dataTables.min.js') }}"></script>
@@ -252,6 +271,31 @@
 
         $('#file').change(function() {
             $('#file-name').html($(this).val());
+        });
+
+        function btn_export(nom_id) {
+            $('#export_taloge').data('id', nom_id);
+            $('#export_taloas').data('id', nom_id);
+            $('#export_talode').data('id', nom_id);
+            $('#modal-export').modal('show');
+        }
+
+        $('#export_taloge').click(function () {
+            var nom_id = $(this).data('id');
+            var url = "{{ site_url('procesos/lista-de-nominas/export-taloge') }}" + '/' + nom_id;
+			window.location = url;
+        });
+
+        $('#export_taloas').click(function () {
+            var nom_id = $(this).data('id');
+            var url = "{{ site_url('procesos/lista-de-nominas/export-taloas') }}" + '/' + nom_id;
+			window.location = url;
+        });
+
+        $('#export_talode').click(function () {
+            var nom_id = $(this).data('id');
+            var url = "{{ site_url('procesos/lista-de-nominas/export-talode') }}" + '/' + nom_id;
+			window.location = url;
         });
         
     </script>

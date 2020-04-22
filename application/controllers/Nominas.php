@@ -122,7 +122,39 @@ class Nominas extends CI_Controller {
         }
     }
     
-    public function test() {
-        $this->Nominas_model->import_personal('/home/luiscordero/Projects/dirsaludbarinas/drs_codeigniter/upload/import/1587005049/TALOGE.DBF');
+    public function export_taloge($nom_id) {
+        ini_set('memory_limit', '-1');
+		
+		$data = $this->Nominas_model->export_taloge($nom_id);
+
+        $this->load->helper('download');
+
+        $name = 'exportar_taloge_'.date('YmdHis').'.csv';
+        
+        force_download($name, $data);
+    }
+
+    public function export_taloas($nom_id) {
+        ini_set('memory_limit', '-1');
+		
+		$data = $this->Nominas_model->export_taloas($nom_id);
+
+        $this->load->helper('download');
+
+        $name = 'exportar_taloas_'.date('YmdHis').'.csv';
+        
+        force_download($name, $data);
+    }
+
+    public function export_talode($nom_id) {
+        ini_set('memory_limit', '-1');
+		
+		$data = $this->Nominas_model->export_talode($nom_id);
+
+        $this->load->helper('download');
+
+        $name = 'exportar_talode_'.date('YmdHis').'.csv';
+        
+        force_download($name, $data);
     }
 }

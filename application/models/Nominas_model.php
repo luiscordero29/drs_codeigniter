@@ -317,4 +317,40 @@ Class Nominas_model extends CI_MODEL
         }
         return $data;
     }
+
+    public function export_taloge($nom_id) {
+        $this->load->dbutil();
+
+        $query = $this->db->get_where('nominas_ge', array('nom_id' => $nom_id));
+
+        $delimiter = ";";
+        $newline = "\r\n";
+        $enclosure = '"';
+
+        return $this->dbutil->csv_from_result($query, $delimiter, $newline, $enclos);
+    }
+
+    public function export_taloas($nom_id) {
+        $this->load->dbutil();
+
+        $query = $this->db->get_where('nominas_as', array('nom_id' => $nom_id));
+
+        $delimiter = ";";
+        $newline = "\r\n";
+        $enclosure = '"';
+
+        return $this->dbutil->csv_from_result($query, $delimiter, $newline, $enclos);
+    }
+
+    public function export_talode($nom_id) {
+        $this->load->dbutil();
+
+        $query = $this->db->get_where('nominas_de', array('nom_id' => $nom_id));
+
+        $delimiter = ";";
+        $newline = "\r\n";
+        $enclosure = '"';
+
+        return $this->dbutil->csv_from_result($query, $delimiter, $newline, $enclos);
+    }
 }
