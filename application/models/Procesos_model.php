@@ -136,5 +136,33 @@ Class Procesos_model extends CI_MODEL
             );
         }
         return $data;
+    }
+    
+    public function cerrar_proceso() {
+        # request
+	    $pro_id = $this->input->post('pro_id');
+        # contar nominas abiertas
+        # contar nominas_ge
+        $this->db->from('nominas');
+        $this->db->where('pro_id', $pro_id);
+        $this->db->where('est_id', 1);
+        $nominas = $this->db->count_all_results();
+        if($nominas > 0) {
+            $data = array(
+                'title' => 'Error',
+                'text' => 'Debe cerrar las nominas para cerrar el proceso',
+                'icon' => 'error',
+            );
+        } else {
+            $this->db->set('est_id', 2);
+            $this->db->where('pro_id', $pro_id);
+            $this->db->update('procesos');
+            $data = array(
+                'title' => 'Exito',
+                'text' => 'Proceso Cerrado',
+                'icon' => 'success',
+            );
+        }
+        return $data;
 	}
 }

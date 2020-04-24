@@ -55,6 +55,7 @@ $route['dashboard/security'] = 'dashboard/security';
 # Procesos de Pagos
 $route['procesos'] = 'procesos/index';
 $route['procesos/crear-proceso-de-pago'] = 'procesos/create';
+$route['procesos/cerrar-proceso-de-pago'] = 'procesos/cerrar_proceso';
 $route['procesos/eliminar-proceso-de-pago'] = 'procesos/destroy';
 # Nominas 
 $route['procesos/lista-de-nominas-(:num)'] = 'nominas/index/$1';

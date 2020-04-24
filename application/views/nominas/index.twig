@@ -19,7 +19,9 @@
     <div class="panel panel-inverse">
         <div class="panel-heading">
             <h4 class="panel-title">Lista de Nominas - Proceso ID: {{ proceso.pro_id }} - Periodo ({{ proceso.pro_fecha_inicio|date("m/d/Y") }} - {{ proceso.pro_fecha_fin|date("m/d/Y") }}) - Estado ({{ proceso.est_descripcion }})</h4>
+            {% if proceso.est_id == 1 %}
             <a href="{{ site_url('procesos/lista-de-nominas-' ~ proceso.pro_id ~ '/create') }}" class="btn btn-secondary btn-sm pull-right"><i class="far fa-plus-square"></i> Crear Tipo Nomina</a>
+            {% endif %}
         </div>
         <div class="panel-body">
             <div class="table-responsive">
@@ -97,9 +99,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <button id="export_taloge" data-id="-1" type="button" class="btn btn-excel btn-block btn-sm"><i class="far fa-file-excel"></i> PERSONAL - TALOGE</button>
-                    <button id="export_taloas" data-id="-1" type="button" class="btn btn-excel btn-block btn-sm"><i class="far fa-file-excel"></i> ASIGNACIONES - TALOAS</button>
-                    <button id="export_talode" data-id="-1" type="button" class="btn btn-excel btn-block btn-sm"><i class="far fa-file-excel"></i> DEDUCCIONES - TALODE</button>
+                    <button id="export_taloge" data-id="-1" type="button" class="btn btn-success btn-block btn-sm"><i class="far fa-file-excel"></i> PERSONAL - TALOGE</button>
+                    <button id="export_taloas" data-id="-1" type="button" class="btn btn-success btn-block btn-sm"><i class="far fa-file-excel"></i> ASIGNACIONES - TALOAS</button>
+                    <button id="export_talode" data-id="-1" type="button" class="btn btn-success btn-block btn-sm"><i class="far fa-file-excel"></i> DEDUCCIONES - TALODE</button>
                 </div>
             </div>
         </div>
@@ -160,7 +162,7 @@
             });        
         }); 
 
-        function destroy(nom_id) {
+        function btn_destroy(nom_id) {
             Swal.fire({
                 title: 'Elimiar Proceso',
                 text: 'Desea eliminar proceso',

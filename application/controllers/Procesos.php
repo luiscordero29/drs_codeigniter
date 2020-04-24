@@ -31,9 +31,10 @@ class Procesos extends CI_Controller {
             $row[] = $item->usu_email;
             $actions = '<div class="text-right">';
             $actions .= '<a href="'.site_url('procesos/lista-de-nominas-'.$item->pro_id).'" class="btn btn-secondary btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Lista de Nominas"><i class="far fa-folder-open"></i></a>';
-            $actions .= '<button data-id="'.$item->pro_id.'" type="button" class="btn-proceso-report btn btn-success btn-sm mr-2"><i class="far fa-file-excel"></i></button>';
-            $actions .= '<button data-id="'.$item->pro_id.'" type="button" class="btn-proceso-lock btn btn-warning btn-sm mr-2"><i class="fas fa-lock"></i></button>';
-            $actions .= '<button onclick="destroy('.$item->pro_id.')" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="far fa-trash-alt"></i></button>';
+			if ($item->est_id == 1) {
+				$actions .= '<button onclick="btn_close('.$item->pro_id.')" type="button" class="btn-proceso-lock btn btn-warning btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Cerrar Proceso"><i class="fas fa-lock"></i></button>';
+			}
+			$actions .= '<button onclick="btn_destroy('.$item->pro_id.')" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="far fa-trash-alt"></i></button>';
             $actions .= '</div>';
             $row[] = $actions;
             $data[] = $row;
@@ -83,4 +84,11 @@ class Procesos extends CI_Controller {
 			echo json_encode($data);	
         }
 	}
+
+	public function cerrar_proceso() {
+        if ($this->input->method(TRUE) == 'POST') {
+			$data = $this->Procesos_model->cerrar_proceso();
+			echo json_encode($data);	
+        }
+    }
 }

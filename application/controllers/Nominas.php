@@ -19,6 +19,8 @@ class Nominas extends CI_Controller {
 
 	public function json($pro_id) {
         $list = $this->Nominas_model->data($pro_id);
+
+        $proceso = $this->Nominas_model->get_proceso($pro_id);
         
         $data = array();
 		$no = $this->input->post('start');
@@ -33,13 +35,15 @@ class Nominas extends CI_Controller {
             $row[] = $item->usu_email;
             $actions = '<div class="text-right">';
             if ($item->est_id == 1) {
-                $actions .= '<button onclick="btn_import('.$item->nom_id.')" type="button" class="btn-proceso-report btn btn-dark btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Importar"><i class="fas fa-upload"></i></button>'; 
+                $actions .= '<button onclick="btn_import('.$item->nom_id.')" type="button" class="btn btn-dark btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Importar"><i class="fas fa-upload"></i></button>'; 
             }
-            $actions .= '<button onclick="btn_export('.$item->nom_id.')" type="button" class="btn-proceso-report btn btn-dark btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Exportar"><i class="fas fa-download"></i></button>';
+            $actions .= '<button onclick="btn_export('.$item->nom_id.')" type="button" class="btn btn-success btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Exportar"><i class="far fa-file-excel"></i></button>';
             if ($item->est_id == 1) {
                 $actions .= '<button onclick="btn_close('.$item->nom_id.')" type="button" class="btn-proceso-lock btn btn-warning btn-sm mr-2"><i class="fas fa-lock"></i></button>';
             }
-            $actions .= '<button onclick="destroy('.$item->nom_id.')" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="far fa-trash-alt"></i></button>';
+            if ($proceso->est_id == 1) {
+                $actions .= '<button onclick="btn_destroy('.$item->nom_id.')" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="far fa-trash-alt"></i></button>';
+            }
             $actions .= '</div>';
             $row[] = $actions;
             $data[] = $row;
