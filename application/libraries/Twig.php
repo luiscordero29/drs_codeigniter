@@ -37,7 +37,7 @@ class Twig
 	 * @var array Functions to add to Twig
 	 */
 	private $functions_asis = [
-		'base_url', 'site_url',
+		'base_url', 'site_url', 'get_csrf_token_name', 'get_csrf_hash'
 	];
 
 	/**

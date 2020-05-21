@@ -4,7 +4,7 @@ Class Nominas_model extends CI_MODEL
 	public function __construct() {
 		parent::__construct();
 	}
-	
+
 	public function get_proceso($pro_id) {
         $this->db->join('estados', 'estados.est_id=procesos.est_id');
         $query = $this->db->get_where('procesos', array('pro_id' => $pro_id));
@@ -16,7 +16,7 @@ Class Nominas_model extends CI_MODEL
         $query = $this->db->get('tipos_nominas');
         return $query->result();
     }
-    
+
     public function nom_descripcion_check() {
         $pro_id = $this->input->post('pro_id');
         $nom_description = $this->input->post('nom_description');
@@ -30,7 +30,7 @@ Class Nominas_model extends CI_MODEL
             return true;
         }
     }
-	
+
 	public function store() {
         # request
 	    $tno_id = $this->input->post('tno_id');
@@ -52,7 +52,7 @@ Class Nominas_model extends CI_MODEL
         );
         return $data;
 	}
-	
+
 	public function data($pro_id) {
         $this->db->from('nominas');
         if($this->input->post_get('length') != -1) {
@@ -60,22 +60,22 @@ Class Nominas_model extends CI_MODEL
         }
         $this->Filtered($pro_id);
         $this->Ordered();
-        $query = $this->db->get(); 
+        $query = $this->db->get();
 	    return $query->result();
     }
-    
+
     public function recordsTotal($pro_id) {
         $this->db->from('nominas');
         $this->db->where('pro_id', $pro_id);
 	    return $this->db->count_all_results();
     }
-    
+
     public function recordsFiltered($pro_id) {
         $this->db->from('nominas');
         $this->Filtered($pro_id);
 	    return $this->db->count_all_results();
     }
-    
+
     public function Filtered($pro_id) {
         $search = $this->input->post_get('search[value]');
         $this->db->join('estados', 'estados.est_id=nominas.est_id');
@@ -86,9 +86,9 @@ Class Nominas_model extends CI_MODEL
         $this->db->like('tno_descripcion', $search);
         $this->db->or_like('est_descripcion', $search);
         $this->db->or_like('usu_email', $search);
-        $this->db->group_end();        
+        $this->db->group_end();
     }
-    
+
     public function Ordered() {
         $order_column = $this->input->post_get('order[0][column]');
         $order_dir = $this->input->post_get('order[0][dir]');
@@ -104,7 +104,7 @@ Class Nominas_model extends CI_MODEL
                 break;
             case 3:
                 $field = 'usu_email';
-                break;             
+                break;
             default:
                 $field = 'nom_id';
                 $order_dir = 'desc';
@@ -139,7 +139,7 @@ Class Nominas_model extends CI_MODEL
         }
         return $data;
     }
-    
+
     public function import_taloge($file) {
         $nom_id =  $this->input->post('nom_id');
         $this->db->delete('nominas_ge', array('nom_id' => $nom_id));
@@ -187,7 +187,9 @@ Class Nominas_model extends CI_MODEL
                     $record['ge_total'] = $row['TOTAL'];
                     $record['ge_fecha'] = $row['FECHA'];
                     $record['ge_mes_ano'] = $row['MESANO'];
-                    $record['ge_periodo'] = $row['PERIODO'];
+					$record['ge_periodo'] = $row['PERIODO'];
+					$record['ge_grupo'] = $row['GRUPO'];
+                    $record['ge_sueldo'] = $row['SUELDO'];
                     $data[] = $record;
                 }
                 $this->db->insert_batch('nominas_ge', $data);

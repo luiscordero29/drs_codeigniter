@@ -35,7 +35,7 @@
                             <th class="text-nowrap">Usuario</th>
                             <th data-orderable="false" style="width: 180px;"></th>
                         </tr>
-                    </thead>						
+                    </thead>
 				</table>
 			</div>
         </div>
@@ -159,8 +159,8 @@
                         "colvis": "Visibilidad"
                     }
                 }
-            });        
-        }); 
+            });
+        });
 
         function btn_destroy(nom_id) {
             Swal.fire({
@@ -174,28 +174,26 @@
                 confirmButtonText: 'Si'
             }).then((result) => {
                 if (result.value) {
-                    $.getJSON( "{{ site_url('/dashboard/security') }}", function( csrf ) {
-                        var url = "{{ site_url('procesos/lista-de-nominas-' ~ proceso.pro_id ~ '/eliminar-nomina') }}";
-                        $.ajax({
-                            url: url,
-                            type: 'POST',
-                            dataType: 'json',
-                            data: {
-                                nom_id: nom_id,
-                                {{ security.get_csrf_token_name }}: csrf.hash,
-                            },
-                            success: function (data) {
-                                $('#data-table-default').DataTable().ajax.reload();
-                                Swal.fire({
-                                    title: data.title,
-                                    text: data.text,
-                                    icon: data.icon,
-                                });
-                            },
-                        });
+                    var url = "{{ site_url('procesos/lista-de-nominas-' ~ proceso.pro_id ~ '/eliminar-nomina') }}";
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            nom_id: nom_id,
+                            '{{ get_csrf_token_name() }}': '{{ get_csrf_hash() }}',
+                        },
+                        success: function (data) {
+                            $('#data-table-default').DataTable().ajax.reload();
+                            Swal.fire({
+                                title: data.title,
+                                text: data.text,
+                                icon: data.icon,
+                            });
+                        },
                     });
                 }
-            });      
+            });
         }
 
         function btn_import(nom_id) {
@@ -217,43 +215,41 @@
 			if (tipo != -1) {
                 var extension = file.split('.');
                 if (extension[1] == 'DBF' || extension[1] == 'dbf') {
-                    $.getJSON( "{{ site_url('/dashboard/security') }}", function( csrf ) {
-                        var formData = new FormData();
-                        formData.append('nom_id', nom_id);
-                        formData.append('tipo', tipo);
-                        formData.append('{{ security.get_csrf_token_name }}', csrf.hash);
-                        formData.append('file', $('#file')[0].files[0], file);
-                        $.ajax({
-                            url: "{{ site_url('procesos/lista-de-nominas-' ~ proceso.pro_id ~ '/import') }}",
-                            type: 'POST',
-                            data: formData,
-                            cache: false,
-                            contentType: false,
-                            processData: false,
-                            beforeSend: function() {
-                                $('#processing').show();
-                                $('#fg-tipo').hide();
-                                $('#fg-file').hide();
-                                $('#import').attr('disabled', 'disabled');
-                            },
-                            success: function(res) {
-                                $('#modal-import').modal('hide');
-                                var data = JSON.parse(res);
-                                Swal.fire({
-                                    title: data.title,
-                                    text: data.text,
-                                    icon: data.icon,
-                                });
-                            },
-                            error: function() {
-                                $('#modal-import').modal('hide');
-                                Swal.fire({
-                                    title: 'Error',
-                                    text: 'Error al Subir Archivo',
-                                    icon: 'error',
-                                });
-                            }
-                        });
+                    var formData = new FormData();
+                    formData.append('nom_id', nom_id);
+                    formData.append('tipo', tipo);
+                    formData.append('{{ get_csrf_token_name() }}', '{{ get_csrf_hash() }}');
+                    formData.append('file', $('#file')[0].files[0], file);
+                    $.ajax({
+                        url: "{{ site_url('procesos/lista-de-nominas-' ~ proceso.pro_id ~ '/import') }}",
+                        type: 'POST',
+                        data: formData,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        beforeSend: function() {
+                            $('#processing').show();
+                            $('#fg-tipo').hide();
+                            $('#fg-file').hide();
+                            $('#import').attr('disabled', 'disabled');
+                        },
+                        success: function(res) {
+                            $('#modal-import').modal('hide');
+                            var data = JSON.parse(res);
+                            Swal.fire({
+                                title: data.title,
+                                text: data.text,
+                                icon: data.icon,
+                            });
+                        },
+                        error: function() {
+                            $('#modal-import').modal('hide');
+                            Swal.fire({
+                                title: 'Error',
+                                text: 'Error al Subir Archivo',
+                                icon: 'error',
+                            });
+                        }
                     });
                 } else {
                     Swal.fire({
@@ -268,7 +264,7 @@
                     text: 'Seleccione un tipo',
                     icon: 'error',
                 });
-            }                
+            }
         });
 
         $('#file').change(function() {
@@ -313,30 +309,27 @@
                 cancelButtonText: 'No',
             }).then((result) => {
                 if (result.value) {
-                    $.getJSON( "{{ site_url('/dashboard/security') }}", function( csrf ) {
-                        var url = "{{ site_url('procesos/lista-de-nominas-' ~ proceso.pro_id ~ '/cerrar-nomina') }}";
-                        $.ajax({
-                            url: url,
-                            type: 'POST',
-                            dataType: 'json',
-                            data: {
-                                nom_id: nom_id,
-                                {{ security.get_csrf_token_name }}: csrf.hash,
-                            },
-                            success: function (data) {
-                                $('#data-table-default').DataTable().ajax.reload();
-                                Swal.fire({
-                                    title: data.title,
-                                    text: data.text,
-                                    icon: data.icon,
-                                });
-                            },
-                        });
+                    var url = "{{ site_url('procesos/lista-de-nominas-' ~ proceso.pro_id ~ '/cerrar-nomina') }}";
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            nom_id: nom_id,
+                            '{{ get_csrf_token_name() }}': '{{ get_csrf_hash() }}',
+                        },
+                        success: function (data) {
+                            $('#data-table-default').DataTable().ajax.reload();
+                            Swal.fire({
+                                title: data.title,
+                                text: data.text,
+                                icon: data.icon,
+                            });
+                        },
                     });
                 }
             })
-            console.log(nom_id);
         }
-        
+
     </script>
 {% endblock %}

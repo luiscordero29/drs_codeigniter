@@ -33,8 +33,8 @@
                             <th class="text-nowrap">Usuario</th>
                             <th data-orderable="false"></th>
                         </tr>
-                    </thead>						
-				</table>
+                    </thead>
+                </table>
 			</div>
         </div>
     </div>
@@ -56,9 +56,8 @@
                 isActiveConfiguracionUsuarios: false,
                 isActiveTiposNominas: false,
             }
-        });  
-       
-        
+        });
+
         $( document ).ready(function() {
             $('#data-table-default').DataTable( {
                 "processing": true,
@@ -93,8 +92,8 @@
                         "colvis": "Visibilidad"
                     }
                 }
-            });        
-        }); 
+            });
+        });
 
         function btn_destroy(pro_id) {
             Swal.fire({
@@ -108,28 +107,26 @@
                 confirmButtonText: 'Si'
             }).then((result) => {
                 if (result.value) {
-                    $.getJSON( "{{ site_url('/dashboard/security') }}", function( csrf ) {
-                        var url = "{{ site_url('/procesos/eliminar-proceso-de-pago') }}";
-                        $.ajax({
-                            url: url,
-                            type: 'POST',
-                            dataType: 'json',
-                            data: {
-                                pro_id: pro_id,
-                                {{ security.get_csrf_token_name }}: csrf.hash,
-                            },
-                            success: function (data) {
-                                $('#data-table-default').DataTable().ajax.reload();
-                                Swal.fire({
-                                    title: data.title,
-                                    text: data.text,
-                                    icon: data.icon,
-                                });
-                            },
-                        });
+                    var url = "{{ site_url('/procesos/eliminar-proceso-de-pago') }}";
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            pro_id: pro_id,
+                            '{{ get_csrf_token_name() }}': '{{ get_csrf_hash() }}',
+                        },
+                        success: function (data) {
+                            $('#data-table-default').DataTable().ajax.reload();
+                            Swal.fire({
+                                title: data.title,
+                                text: data.text,
+                                icon: data.icon,
+                            });
+                        },
                     });
                 }
-            });      
+            });
         }
 
         function btn_close(pro_id) {
@@ -144,28 +141,26 @@
                 confirmButtonText: 'Si'
             }).then((result) => {
                 if (result.value) {
-                    $.getJSON( "{{ site_url('/dashboard/security') }}", function( csrf ) {
-                        var url = "{{ site_url('/procesos/cerrar-proceso-de-pago') }}";
-                        $.ajax({
-                            url: url,
-                            type: 'POST',
-                            dataType: 'json',
-                            data: {
-                                pro_id: pro_id,
-                                {{ security.get_csrf_token_name }}: csrf.hash,
-                            },
-                            success: function (data) {
-                                $('#data-table-default').DataTable().ajax.reload();
-                                Swal.fire({
-                                    title: data.title,
-                                    text: data.text,
-                                    icon: data.icon,
-                                });
-                            },
-                        });
+                    var url = "{{ site_url('/procesos/cerrar-proceso-de-pago') }}";
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            pro_id: pro_id,
+                            '{{ get_csrf_token_name() }}': '{{ get_csrf_hash() }}',
+                        },
+                        success: function (data) {
+                            $('#data-table-default').DataTable().ajax.reload();
+                            Swal.fire({
+                                title: data.title,
+                                text: data.text,
+                                icon: data.icon,
+                            });
+                        },
                     });
                 }
-            });      
+            });
         }
     </script>
 {% endblock %}
