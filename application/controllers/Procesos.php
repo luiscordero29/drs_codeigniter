@@ -23,20 +23,14 @@ class Procesos extends CI_Controller {
         foreach ($list as $item) {
             $no++;
             $row = array();
-            $row[] = $item->pro_id;
-            $row[] = $item->pro_descripcion;
-            $row[] = $this->Procesos_model->date_to_fecha($item->pro_fecha_inicio);
-            $row[] = $this->Procesos_model->date_to_fecha($item->pro_fecha_fin);
-            $row[] = $item->est_descripcion;
-            $row[] = $item->usu_email;
-            $actions = '<div class="text-right">';
-            $actions .= '<a href="'.site_url('procesos/lista-de-nominas-'.$item->pro_id).'" class="btn btn-secondary btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Lista de Nominas"><i class="far fa-folder-open"></i></a>';
-			if ($item->est_id == 1) {
-				$actions .= '<button onclick="btn_close('.$item->pro_id.')" type="button" class="btn-proceso-lock btn btn-warning btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Cerrar Proceso"><i class="fas fa-lock"></i></button>';
-			}
-			$actions .= '<button onclick="btn_destroy('.$item->pro_id.')" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="far fa-trash-alt"></i></button>';
-            $actions .= '</div>';
-            $row[] = $actions;
+            $row['pro_id'] = $item->pro_id;
+            $row['pro_descripcion'] = $item->pro_descripcion;
+            $row['pro_fecha_inicio'] = $this->Procesos_model->date_to_fecha($item->pro_fecha_inicio);
+            $row['pro_fecha_fin'] = $this->Procesos_model->date_to_fecha($item->pro_fecha_fin);
+            $row['est_descripcion'] = $item->est_descripcion;
+			$row['usu_email'] = $item->usu_email;
+			$row['est_id'] = $item->est_id;
+			$row['lista_nominas'] = site_url('procesos/lista-de-nominas-'.$item->pro_id);
             $data[] = $row;
         }
 
@@ -46,7 +40,7 @@ class Procesos extends CI_Controller {
 			'recordsFiltered' => $this->Procesos_model->recordsFiltered(),
 			'data' => $data,
 		);
-
+		header("Content-type: application/json");
 		echo json_encode($json);
 	}
 
@@ -81,6 +75,7 @@ class Procesos extends CI_Controller {
 	public function destroy() {
 		if ($this->input->method(TRUE) == 'POST') {
 			$data = $this->Procesos_model->destroy();
+			header("Content-type: application/json");
 			echo json_encode($data);
         }
 	}
@@ -88,6 +83,7 @@ class Procesos extends CI_Controller {
 	public function cerrar_proceso() {
         if ($this->input->method(TRUE) == 'POST') {
 			$data = $this->Procesos_model->cerrar_proceso();
+			header("Content-type: application/json");
 			echo json_encode($data);
         }
     }

@@ -57,13 +57,37 @@
                 isActiveTiposNominas: false,
             }
         });
-
         $( document ).ready(function() {
+            $('#menu-nominas').addClass('expand');
+            $('#submenu-nomina').show();
             $('#data-table-default').DataTable( {
                 "processing": true,
                 "serverSide": true,
                 "type": "POST",
                 "ajax": "{{ site_url('procesos/json') }}",
+                "columns": [
+                    { "data": "pro_id" },
+                    { "data": "pro_descripcion" },
+                    { "data": "pro_fecha_inicio" },
+                    { "data": "pro_fecha_fin" },
+                    { "data": "est_descripcion" },
+                    { "data": "usu_email" },
+                    { 
+                        "data": "actions",
+                        "render": 
+                            function ( data, type, row, meta ) {
+                                var actions = '';
+                                actions += '<div class="text-right">';
+                                actions += '<a href="'+row.lista_nominas+'" class="btn btn-secondary btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Lista de Nominas"><i class="far fa-folder-open"></i></a>';
+			                    if (row.est_id == 1) {
+				                    actions += '<button onclick="btn_close('+row.pro_id+')" type="button" class="btn-proceso-lock btn btn-warning btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Cerrar Proceso"><i class="fas fa-lock"></i></button>';
+			                    }
+                                actions += '<button onclick="btn_destroy('+row.pro_id+')" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="far fa-trash-alt"></i></button>';
+                                actions += '</div>';
+                                return actions;
+                            }
+                    },
+                ],
                 "language": {
                     "sProcessing":     "Procesando...",
                     "sLengthMenu":     "Mostrar _MENU_ registros",
@@ -107,23 +131,25 @@
                 confirmButtonText: 'Si'
             }).then((result) => {
                 if (result.value) {
-                    var url = "{{ site_url('/procesos/eliminar-proceso-de-pago') }}";
-                    $.ajax({
-                        url: url,
-                        type: 'POST',
-                        dataType: 'json',
-                        data: {
-                            pro_id: pro_id,
-                            '{{ get_csrf_token_name() }}': '{{ get_csrf_hash() }}',
-                        },
-                        success: function (data) {
-                            $('#data-table-default').DataTable().ajax.reload();
-                            Swal.fire({
-                                title: data.title,
-                                text: data.text,
-                                icon: data.icon,
-                            });
-                        },
+                    $.get("{{ site_url('dashboard/security') }}", function( csrf ) {
+                        var url = "{{ site_url('/procesos/eliminar-proceso-de-pago') }}";
+                        $.ajax({
+                            url: url,
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                pro_id: pro_id,
+                                '{{ get_csrf_token_name() }}': csrf.hash,
+                            },
+                            success: function (data) {
+                                $('#data-table-default').DataTable().ajax.reload();
+                                Swal.fire({
+                                    title: data.title,
+                                    text: data.text,
+                                    icon: data.icon,
+                                });
+                            },
+                        });
                     });
                 }
             });
@@ -141,24 +167,27 @@
                 confirmButtonText: 'Si'
             }).then((result) => {
                 if (result.value) {
-                    var url = "{{ site_url('/procesos/cerrar-proceso-de-pago') }}";
-                    $.ajax({
-                        url: url,
-                        type: 'POST',
-                        dataType: 'json',
-                        data: {
-                            pro_id: pro_id,
-                            '{{ get_csrf_token_name() }}': '{{ get_csrf_hash() }}',
-                        },
-                        success: function (data) {
-                            $('#data-table-default').DataTable().ajax.reload();
-                            Swal.fire({
-                                title: data.title,
-                                text: data.text,
-                                icon: data.icon,
-                            });
-                        },
+                    $.get("{{ site_url('dashboard/security') }}", function( csrf ) {
+                        var url = "{{ site_url('/procesos/cerrar-proceso-de-pago') }}";
+                        $.ajax({
+                            url: url,
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                pro_id: pro_id,
+                                '{{ get_csrf_token_name() }}': csrf.hash,
+                            },
+                            success: function (data) {
+                                $('#data-table-default').DataTable().ajax.reload();
+                                Swal.fire({
+                                    title: data.title,
+                                    text: data.text,
+                                    icon: data.icon,
+                                });
+                            },
+                        });
                     });
+                    
                 }
             });
         }

@@ -18,6 +18,7 @@ class Dashboard extends CI_Controller {
 			'name' => $this->security->get_csrf_token_name(),
 			'hash' => $this->security->get_csrf_hash()
 		);
+		header("Content-type: application/json");
 		echo json_encode($csrf);
 	}
 
